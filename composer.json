@@ -71,7 +71,13 @@
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models -N"
         ],
+        "phpunit": "phpunit",
         "phpcs": "phpcs -n --colors --standard=phpcs.xml --extensions=php ./",
-        "phpcs-unit-tests": "phpcs -n --colors --standard=phpcs.unit-tests.xml --extensions=php ./tests"
+        "phpcs-unit-tests": "phpcs -n --colors --standard=phpcs.unit-tests.xml --extensions=php ./tests",
+        "check": [
+            "composer phpunit",
+            "composer phpcs",
+            "composer phpcs-unit-tests"
+        ]
     }
 }

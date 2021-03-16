@@ -9,7 +9,8 @@
         "prod": "npm run production",
         "production": "mix --production",
         "prettier": "prettier",
-        "eslint": "eslint resources/js/**/*.{js,jsx} --quiet"
+        "eslint": "eslint resources/js/**/*.{js,jsx} --quiet",
+        "check": "npm run eslint"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.12.13",
@@ -17,6 +18,7 @@
         "@prettier/plugin-php": "^0.16.1",
         "@types/react": "^17.0.3",
         "@types/react-dom": "^17.0.2",
+        "@types/ziggy-js": "^1.0.1",
         "autoprefixer": "^10.0.2",
         "eslint": "^7.22.0",
         "eslint-config-airbnb": "^18.2.1",

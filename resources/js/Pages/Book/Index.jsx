@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Main from "../../Layouts/Main";
+import BookListCard from "../../Components/BookListCard";
 
 const Index = ({ books }) => (
-    <div>
-        {books.map((book) => (
-            <div key={book.id}>{book.title}</div>
-        ))}
-    </div>
+    <Main>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {books.map((book) => (
+                <BookListCard key={book.id} book={book} />
+            ))}
+        </div>
+    </Main>
 );
 
 Index.propTypes = {

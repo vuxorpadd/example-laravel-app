@@ -22,5 +22,8 @@
     },
     "ignorePatterns": [
         "app.jsx"
-    ]
+    ],
+    "globals": {
+        "route": "readonly"
+    }
 }
