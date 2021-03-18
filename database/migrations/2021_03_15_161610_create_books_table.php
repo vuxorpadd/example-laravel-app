@@ -16,6 +16,10 @@ class CreateBooksTable extends Migration
         Schema::create("books", function (Blueprint $table) {
             $table->id();
             $table->string("title");
+            $table
+                ->foreignId("author_id")
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string("subtitle");
             $table->text("description");
             $table->text("preview");

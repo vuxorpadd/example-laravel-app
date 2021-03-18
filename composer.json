@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "bluemmb/faker-picsum-photos-provider": "^2.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -21,6 +20,7 @@
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
+        "bluemmb/faker-picsum-photos-provider": "^2.0",
         "barryvdh/laravel-ide-helper": "^2.9",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",

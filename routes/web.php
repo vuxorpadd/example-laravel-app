@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,9 @@ Route::middleware(["auth:sanctum", "verified"])
 Route::get("/books", [BookController::class, "index"]);
 Route::get("/books/{book}", [BookController::class, "show"])->name(
     "books.show"
+);
+
+Route::get("/authors", [AuthorController::class, "index"]);
+Route::get("/authors/{author}", [AuthorController::class, "show"])->name(
+    "authors.show"
 );

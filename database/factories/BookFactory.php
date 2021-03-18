@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,6 +30,9 @@ class BookFactory extends Factory
             "description" => $this->faker->text(300),
             "preview" => $this->faker->realText(1000, 3),
             "cover" => $this->faker->imageUrl(200, 300, true),
+            "author_id" => Author::all()->count()
+                ? Author::all()->random()
+                : Author::factory()->create(),
         ];
     }
 }
