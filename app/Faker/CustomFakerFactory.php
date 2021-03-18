@@ -2,6 +2,7 @@
 
 namespace App\Faker;
 
+use Bluemmb\Faker\PicsumPhotosProvider;
 use Faker\Factory;
 use Faker\Generator;
 
@@ -11,6 +12,7 @@ class CustomFakerFactory
     {
         $faker = Factory::create();
         $faker->addProvider(new CustomFakerProvider($faker));
+        $faker->addProvider(new PicsumPhotosProvider($faker));
         return $faker;
     }
 }

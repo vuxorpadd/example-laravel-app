@@ -23,6 +23,12 @@ class BookFactory extends Factory
     {
         return [
             "title" => $this->faker->bookName,
+            "subtitle" => $this->faker->sentence(
+                $this->faker->numberBetween(3, 7)
+            ),
+            "description" => $this->faker->text(300),
+            "preview" => $this->faker->realText(1000, 3),
+            "cover" => $this->faker->imageUrl(200, 300, true),
         ];
     }
 }

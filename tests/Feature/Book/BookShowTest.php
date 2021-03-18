@@ -16,9 +16,13 @@ class BookShowTest extends TestCase
      */
     public function opening_book_list_page()
     {
-        $book = Book::factory()->create([
+        Book::factory()->create([
             "id" => 1,
             "title" => "BOOK A",
+            "subtitle" => "STORY A",
+            "description" => "BOOK ABOUT A",
+            "preview" => "ONCE UPON A TIME",
+            "cover" => "http://cover-image.png",
         ]);
 
         $response = $this->get("/books/1");
@@ -30,6 +34,10 @@ class BookShowTest extends TestCase
                 ->component("Book/Show")
                 ->has("book")
                 ->where("book.title", "BOOK A")
+                ->where("book.subtitle", "STORY A")
+                ->where("book.description", "BOOK ABOUT A")
+                ->where("book.preview", "ONCE UPON A TIME")
+                ->where("book.cover", "http://cover-image.png")
         );
     }
 }
