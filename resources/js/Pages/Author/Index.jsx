@@ -6,7 +6,7 @@ import AuthorListCard from "../../Components/AuthorListCard";
 
 const Index = ({ authors }) => (
     <Main>
-        <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {authors.map((author) => (
                 <AuthorListCard key={author.id} author={author} />
             ))}

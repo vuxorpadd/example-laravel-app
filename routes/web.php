@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,14 +16,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get("/", function () {
-    return Inertia::render("Welcome", [
-        "canLogin" => Route::has("login"),
-        "canRegister" => Route::has("register"),
-        "laravelVersion" => Application::VERSION,
-        "phpVersion" => PHP_VERSION,
-    ]);
-});
+Route::get("/", fn() => redirect("/books"));
 
 Route::middleware(["auth:sanctum", "verified"])
     ->get("/dashboard", function () {
@@ -34,12 +26,14 @@ Route::middleware(["auth:sanctum", "verified"])
 
 //Custom
 
-Route::get("/books", [BookController::class, "index"]);
+Route::get("/books", [BookController::class, "index"])->name("books.index");
 Route::get("/books/{book}", [BookController::class, "show"])->name(
     "books.show"
 );
 
-Route::get("/authors", [AuthorController::class, "index"]);
+Route::get("/authors", [AuthorController::class, "index"])->name(
+    "authors.index"
+);
 Route::get("/authors/{author}", [AuthorController::class, "show"])->name(
     "authors.show"
 );
