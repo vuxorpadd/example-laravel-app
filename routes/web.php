@@ -25,7 +25,6 @@ Route::middleware(["auth:sanctum", "verified"])
     ->name("dashboard");
 
 //Custom
-
 Route::get("/books", [BookController::class, "index"])->name("books.index");
 Route::get("/books/{book}", [BookController::class, "show"])->name(
     "books.show"

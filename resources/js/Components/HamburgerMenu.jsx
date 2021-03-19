@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { InertiaLink } from "@inertiajs/inertia-react";
 import Hamburger from "hamburger-react";
-import PropTypes, { string } from "prop-types";
 import {
     disableBodyScroll,
     enableBodyScroll,
     clearAllBodyScrollLocks,
 } from "body-scroll-lock";
+import MenuItemsType from "../Types/MenuItemsType";
+import HamburgerMenuSection from "./HamburgerMenuSection";
 
-const HamburgerMenu = ({ menuItems }) => {
+const HamburgerMenu = ({ menuItems, authMenuItems }) => {
     const [showMenu, setShowMenu] = useState(false);
     const targetElement = "none";
 
@@ -24,6 +24,10 @@ const HamburgerMenu = ({ menuItems }) => {
         clearAllBodyScrollLocks();
     });
 
+    const closeMenu = () => {
+        setShowMenu(false);
+    };
+
     return (
         <>
             <div className="absolute right-0 top-0 px-4 py-2 z-20">
@@ -34,16 +38,19 @@ const HamburgerMenu = ({ menuItems }) => {
                 <div className="z-10">
                     <div className="bg-white fixed inset-0 opacity-95 flex" />
                     <div className="fixed inset-0 flex">
-                        <div className="m-auto p-2 font-bold space-y-8 text-gray-800">
-                            {menuItems.map(({ href, label }) => (
-                                <InertiaLink
-                                    key={href}
-                                    className="block text-2xl"
-                                    href={href}
-                                >
-                                    {label}
-                                </InertiaLink>
-                            ))}
+                        <div className="m-auto p-2 space-y-8 font-bold text-gray-800">
+                            <div className="space-y-8 border-b-4 pb-8">
+                                <HamburgerMenuSection
+                                    menuItems={menuItems}
+                                    onMenuItemClick={closeMenu}
+                                />
+                            </div>
+                            <div className="space-y-8">
+                                <HamburgerMenuSection
+                                    menuItems={authMenuItems}
+                                    onMenuItemClick={closeMenu}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,12 +60,8 @@ const HamburgerMenu = ({ menuItems }) => {
 };
 
 HamburgerMenu.propTypes = {
-    menuItems: PropTypes.arrayOf(
-        PropTypes.shape({
-            href: string,
-            label: string,
-        })
-    ).isRequired,
+    menuItems: MenuItemsType.isRequired,
+    authMenuItems: MenuItemsType.isRequired,
 };
 
 export default HamburgerMenu;

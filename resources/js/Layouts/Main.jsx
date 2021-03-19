@@ -4,22 +4,31 @@ import { InertiaLink } from "@inertiajs/inertia-react";
 import Navigation from "../Components/Navigation";
 import HamburgerMenu from "../Components/HamburgerMenu";
 import menuItems from "../Menu/MenuItems";
+import authMenuItems from "../Menu/AuthMenuItems";
 
 const Main = ({ children }) => (
     <>
         <header>
-            <div className="fixed top-0 p-4 w-full bg-white shadow-md md:flex md:space-x-14 md:items-center">
+            <div className="fixed top-0 p-4 w-full bg-white shadow-md md:flex md:items-center">
                 <h1 className="text-3xl font-bold text-red-500 font-logo">
                     <InertiaLink href="/">
                         <span className="md:hidden">BS</span>
                         <span className="hidden md:inline">Book Shelf</span>
                     </InertiaLink>
                 </h1>
-                <div className="md:hidden">
-                    <HamburgerMenu menuItems={menuItems} />
-                </div>
-                <div className="hidden md:block">
+
+                <div className="hidden md:block ml-20">
                     <Navigation menuItems={menuItems} />
+                </div>
+                <div className="hidden md:block md:ml-auto">
+                    <Navigation menuItems={authMenuItems} />
+                </div>
+
+                <div className="md:hidden">
+                    <HamburgerMenu
+                        menuItems={menuItems}
+                        authMenuItems={authMenuItems}
+                    />
                 </div>
             </div>
         </header>

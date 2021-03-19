@@ -1,12 +1,18 @@
 import React from "react";
-import NavigationItem from "./NavigationItem";
+import { InertiaLink } from "@inertiajs/inertia-react";
 import MenuItemsType from "../Types/MenuItemsType";
+import MenuItems from "./MenuItems";
 
 const Navigation = ({ menuItems }) => (
     <div className="space-x-6 text-gray-600 text-l font-bold">
-        {menuItems.map(({ href, label }) => (
-            <NavigationItem href={href} label={label} />
-        ))}
+        <MenuItems
+            items={menuItems}
+            render={(data) => (
+                <InertiaLink href={data.href} onClick={data.onClick}>
+                    {data.label}
+                </InertiaLink>
+            )}
+        />
     </div>
 );
 
