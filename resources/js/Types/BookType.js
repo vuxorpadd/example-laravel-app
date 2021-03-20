@@ -1,7 +1,6 @@
-import { number, string } from "prop-types";
-import * as PropTypes from "prop-types";
+import { number, shape, string } from "prop-types";
 
-export default PropTypes.shape({
+export default shape({
     id: number,
     title: string,
     subtitle: string,

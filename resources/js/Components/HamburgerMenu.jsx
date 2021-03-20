@@ -7,10 +7,14 @@ import {
 } from "body-scroll-lock";
 import MenuItemsType from "../Types/MenuItemsType";
 import HamburgerMenuSection from "./HamburgerMenuSection";
+import ProfileCard from "./ProfileCard";
+import useUser from "../Hooks/useUser";
 
 const HamburgerMenu = ({ menuItems, authMenuItems }) => {
     const [showMenu, setShowMenu] = useState(false);
     const targetElement = "none";
+
+    const user = useUser();
 
     useEffect(() => {
         if (showMenu) {
@@ -36,10 +40,15 @@ const HamburgerMenu = ({ menuItems, authMenuItems }) => {
 
             {showMenu && (
                 <div className="z-10">
-                    <div className="bg-white fixed inset-0 opacity-95 flex" />
+                    <div className="bg-white fixed inset-0 flex" />
                     <div className="fixed inset-0 flex">
-                        <div className="m-auto p-2 space-y-8 font-bold text-gray-800">
-                            <div className="space-y-8 border-b-4 pb-8">
+                        <div className="m-auto p-10 space-y-8 text-gray-800 w-full h-full mt-16">
+                            {user && (
+                                <div className="border-b pb-8">
+                                    <ProfileCard user={user} />
+                                </div>
+                            )}
+                            <div className="space-y-8 border-b pb-8">
                                 <HamburgerMenuSection
                                     menuItems={menuItems}
                                     onMenuItemClick={closeMenu}

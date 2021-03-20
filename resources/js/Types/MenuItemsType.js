@@ -1,4 +1,4 @@
-import * as PropTypes from "prop-types";
+import { arrayOf } from "prop-types";
 import MenuItemType from "./MenuItemType";
 
-export default PropTypes.arrayOf(MenuItemType);
+export default arrayOf(MenuItemType);

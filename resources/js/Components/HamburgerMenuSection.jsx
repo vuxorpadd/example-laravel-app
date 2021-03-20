@@ -9,7 +9,8 @@ const HamburgerMenuSection = ({ menuItems, onMenuItemClick }) => (
         items={menuItems}
         render={(data) => (
             <InertiaLink
-                className="block text-2xl"
+                key={data.href}
+                className="block text-xl"
                 href={data.href}
                 onClick={(e) => {
                     data.onClick(e);

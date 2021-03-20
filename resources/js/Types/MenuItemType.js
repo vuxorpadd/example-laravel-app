@@ -1,7 +1,6 @@
-import { string } from "prop-types";
-import * as PropTypes from "prop-types";
+import { shape, string } from "prop-types";
 
-export default PropTypes.shape({
+export default shape({
     href: string,
     label: string,
 });
