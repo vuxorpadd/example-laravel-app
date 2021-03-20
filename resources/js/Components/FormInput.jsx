@@ -1,5 +1,5 @@
 import React from "react";
-import { string } from "prop-types";
+import PropTypes from "prop-types";
 
 const FormInput = ({ error, ...rest }) => (
     <div>
@@ -13,7 +13,11 @@ const FormInput = ({ error, ...rest }) => (
 );
 
 FormInput.propTypes = {
-    error: string.isRequired,
+    error: PropTypes.string,
+};
+
+FormInput.defaultProps = {
+    error: null,
 };
 
 export default FormInput;

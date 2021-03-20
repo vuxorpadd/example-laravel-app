@@ -8,7 +8,11 @@ const Navigation = ({ menuItems }) => (
         <MenuItems
             items={menuItems}
             render={(data) => (
-                <InertiaLink href={data.href} onClick={data.onClick}>
+                <InertiaLink
+                    key={data.href}
+                    href={data.href}
+                    onClick={data.onClick}
+                >
                     {data.label}
                 </InertiaLink>
             )}

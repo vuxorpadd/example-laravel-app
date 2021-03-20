@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "react-loader-spinner";
-import PropTypes, { bool, node } from "prop-types";
+import PropTypes from "prop-types";
 
 const SubmitButton = ({ isProcessing, children }) => (
     <button
@@ -17,8 +17,8 @@ const SubmitButton = ({ isProcessing, children }) => (
 );
 
 SubmitButton.propTypes = {
-    isProcessing: bool.isRequired,
-    children: PropTypes.arrayOf(node).isRequired,
+    isProcessing: PropTypes.bool.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
 export default SubmitButton;
