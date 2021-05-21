@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\Assert;
 use Tests\TestCase;
 
-class BookListTest extends TestCase
+class ListBooksTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Book;
+namespace Tests\Feature\Author;
 
 use App\Models\Author;
 use App\Models\Book;
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\Assert;
 use Tests\TestCase;
 
-class AuthorShowTest extends TestCase
+class ShowAuthorTest extends TestCase
 {
     use RefreshDatabase;
 

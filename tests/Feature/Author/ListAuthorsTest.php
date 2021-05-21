@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\Book;
+namespace Tests\Feature\Author;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\Assert;
 use Tests\TestCase;
 
-class AuthorListTest extends TestCase
+class ListAuthorsTest extends TestCase
 {
     use RefreshDatabase;
 

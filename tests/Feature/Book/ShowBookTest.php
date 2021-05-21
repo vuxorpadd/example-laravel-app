@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\Assert;
 use Tests\TestCase;
 
-class BookShowTest extends TestCase
+class ShowBookTest extends TestCase
 {
     use RefreshDatabase;
 
