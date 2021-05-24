@@ -20,9 +20,9 @@ class CreateBooksTable extends Migration
                 ->foreignId("author_id")
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string("subtitle");
-            $table->text("description");
-            $table->text("preview");
+            $table->string("subtitle")->nullable();
+            $table->text("description")->nullable();
+            $table->text("preview")->nullable();
             $table->string("cover");
             $table->timestamps();
         });

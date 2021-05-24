@@ -11,6 +11,15 @@ class Book extends Model
 
     protected $with = ["author"];
 
+    protected $fillable = [
+        "title",
+        "author_id",
+        "subtitle",
+        "description",
+        "preview",
+        "cover",
+    ];
+
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Author::class);

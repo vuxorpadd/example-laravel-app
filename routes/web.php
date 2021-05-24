@@ -26,6 +26,16 @@ Route::middleware(["auth:sanctum", "verified"])
 
 //Custom
 Route::get("/books", [BookController::class, "index"])->name("books.index");
+
+Route::group(["middleware" => ["auth", "checkRole:admin"]], function () {
+    Route::get("/books/create", [BookController::class, "create"])->name(
+        "books.create"
+    );
+    Route::post("/books", [BookController::class, "store"])->name(
+        "books.store"
+    );
+});
+
 Route::get("/books/{book}", [BookController::class, "show"])->name(
     "books.show"
 );
