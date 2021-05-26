@@ -69,6 +69,8 @@ class CreateBookTest extends TestCase
      */
     public function admins_have_access_to_add_book_form()
     {
+        Author::factory(5)->create();
+
         $user = User::factory()
             ->admin()
             ->create();
@@ -78,7 +80,37 @@ class CreateBookTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertInertia(
-            fn(Assert $page) => $page->component("Book/Create")
+            fn(Assert $page) => $page
+                ->component("Book/Create")
+                ->has("authors", 5)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function authors_are_sorted_alphabetically()
+    {
+        Author::factory()->createMany([
+            ["id" => 1, "name" => "Semen"],
+            ["id" => 2, "name" => "Melanka"],
+            ["id" => 3, "name" => "Petro"],
+            ["id" => 4, "name" => "Olenka"],
+        ]);
+
+        $user = User::factory()
+            ->admin()
+            ->create();
+
+        $response = $this->actingAs($user)->get("/books/create");
+
+        $response->assertStatus(200);
+
+        $response->assertInertia(
+            fn(Assert $page) => $page->where("authors", function ($authors) {
+                $this->assertEquals("2,4,3,1", $authors->implode("id", ","));
+                return true;
+            })
         );
     }
 

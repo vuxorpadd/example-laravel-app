@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
-import FormInput from "../../Components/FormInput";
-import SubmitButton from "../../Components/SubmitButton";
+import SubmitButton from "../../Components/Form/SubmitButton";
+import Input from "../../Components/Form/Input";
 
 const Login = () => {
     const { data, setData, post, errors, processing } = useForm({
@@ -17,27 +17,26 @@ const Login = () => {
                     e.preventDefault();
                     post("/login");
                 }}
-                className="space-y-2"
+                className="space-y-2 md:w-1/3"
             >
                 <div>
-                    <FormInput
+                    <Input
                         error={errors.email}
-                        type="text"
-                        placeholder="email"
+                        label="email"
                         value={data.email}
-                        onChange={(e) => setData("email", e.target.value)}
+                        onChange={(value) => setData("email", value)}
                     />
                 </div>
                 <div>
-                    <FormInput
-                        error={errors.password}
+                    <Input
                         type="password"
+                        error={errors.password}
                         value={data.password}
-                        placeholder="password"
-                        onChange={(e) => setData("password", e.target.value)}
+                        label="password"
+                        onChange={(value) => setData("password", value)}
                     />
                 </div>
-                <div>
+                <div className="mx-2">
                     <SubmitButton isProcessing={processing}>Login</SubmitButton>
                 </div>
             </form>

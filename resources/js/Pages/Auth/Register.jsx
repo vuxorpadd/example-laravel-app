@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
-import FormInput from "../../Components/FormInput";
-import SubmitButton from "../../Components/SubmitButton";
+import SubmitButton from "../../Components/Form/SubmitButton";
+import Input from "../../Components/Form/Input";
 
 const Register = () => {
     const { data, setData, post, errors, clearErrors, processing } = useForm({
@@ -25,55 +25,53 @@ const Register = () => {
     return (
         <Main>
             <div>
-                <form onSubmit={submit} className="space-y-2">
+                <form onSubmit={submit} className="space-y-2 md:w-1/3">
                     <div>
-                        <FormInput
-                            error={errors.name}
-                            type="text"
-                            placeholder="name"
+                        <Input
+                            onChange={(value) =>
+                                fieldChangeHandler("name", value)
+                            }
                             value={data.name}
-                            onChange={(e) =>
-                                fieldChangeHandler("name", e.target.value)
-                            }
+                            error={errors.name}
+                            label="name"
                         />
                     </div>
                     <div>
-                        <FormInput
+                        <Input
                             error={errors.email}
-                            type="text"
-                            placeholder="email / username"
+                            label="email / username"
                             value={data.email}
-                            onChange={(e) =>
-                                fieldChangeHandler("email", e.target.value)
+                            onChange={(value) =>
+                                fieldChangeHandler("email", value)
                             }
                         />
                     </div>
                     <div>
-                        <FormInput
+                        <Input
                             error={errors.password}
                             type="password"
                             value={data.password}
-                            placeholder="password"
-                            onChange={(e) =>
-                                fieldChangeHandler("password", e.target.value)
+                            label="password"
+                            onChange={(value) =>
+                                fieldChangeHandler("password", value)
                             }
                         />
                     </div>
                     <div>
-                        <FormInput
+                        <Input
                             error={errors.password_confirmation}
-                            type="password_confirmation"
+                            type="password"
                             value={data.password_confirmation}
-                            placeholder="password one.. more .. time"
-                            onChange={(e) =>
+                            label="password one.. more .. time"
+                            onChange={(value) =>
                                 fieldChangeHandler(
                                     "password_confirmation",
-                                    e.target.value
+                                    value
                                 )
                             }
                         />
                     </div>
-                    <div>
+                    <div className="mx-2">
                         <SubmitButton isProcessing={processing}>
                             Register
                         </SubmitButton>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,8 @@ class BookController extends Controller
 
     public function create()
     {
-        return Inertia::render("Book/Create");
+        $authors = Author::orderBy("name")->get();
+        return Inertia::render("Book/Create", compact("authors"));
     }
 
     public function store(Request $request)

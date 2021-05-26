@@ -24,7 +24,7 @@ const BookListCard = ({ book }) => (
                 <div>{book.subtitle}</div>
                 <div>
                     <p>
-                        {book.description.length > 50
+                        {book.description && book.description.length > 50
                             ? `${book.description.slice(0, 50)}...`
                             : book.description}
                     </p>

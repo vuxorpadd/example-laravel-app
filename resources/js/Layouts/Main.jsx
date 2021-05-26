@@ -48,7 +48,7 @@ const Main = ({ children }) => {
                 </div>
             </header>
 
-            <div className="px-4 mt-20 container mx-auto">{children}</div>
+            <div className="px-4 py-2 mt-20 container mx-auto">{children}</div>
         </>
     );
 };

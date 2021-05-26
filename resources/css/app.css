@@ -3,3 +3,18 @@
 @import 'tailwindcss/utilities';
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&family=Montserrat:wght@600&display=swap');
+
+
+@layer components {
+    .form-control {
+        @apply border-gray-300 rounded focus:outline-none focus:ring-blue-300 focus:ring-2 focus:border-transparent w-full;
+    }
+
+    .btn {
+        @apply block p-2 rounded-md shadow-md font-bold uppercase text-center md:inline-block md:px-10 disabled:opacity-50 w-full md:w-min;
+    }
+
+    .btn-primary {
+        @apply bg-red-500 text-white hover:bg-red-400;
+    }
+}

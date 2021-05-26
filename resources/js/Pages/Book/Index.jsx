@@ -11,12 +11,21 @@ const Index = ({ books }) => {
 
     return (
         <Main>
-            {isAdmin && (
+            <div className="space-y-4">
+                {isAdmin && (
+                    <div>
+                        <InertiaLink
+                            className="btn btn-primary"
+                            href={route("books.create")}
+                        >
+                            Add
+                        </InertiaLink>
+                    </div>
+                )}
                 <div>
-                    <InertiaLink href={route("books.create")}>Add</InertiaLink>
+                    <BookList books={books} />
                 </div>
-            )}
-            <BookList books={books} />
+            </div>
         </Main>
     );
 };
