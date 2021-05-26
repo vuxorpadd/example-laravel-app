@@ -28,68 +28,75 @@ const Create = ({ authors }) => {
 
     return (
         <Main>
-            <form onSubmit={submit} className="space-y-2 md:w-1/3 mb-2">
-                <div>
-                    <Input
-                        onChange={(value) => setData("title", value)}
-                        value={data.title}
-                        label="Title"
-                        error={errors.title}
-                    />
-                </div>
-                <div>
-                    <Select
-                        value={data.author_id}
-                        onChange={(value) => setData("author_id", value)}
-                        error={errors.author_id}
-                        options={authors.map(({ id, name }) => ({
-                            value: id,
-                            label: name,
-                        }))}
-                    />
-                </div>
-                <div>
-                    <FileUpload
-                        label="Cover image"
-                        accept="image/png, image/jpeg"
-                        onChange={(value) => {
-                            setData("cover", value);
-                        }}
-                        error={errors.cover}
-                        filename={data.cover.name ?? ""}
-                    />
-                </div>
-                <div>
-                    <Text
-                        onChange={(value) => setData("subtitle", value)}
-                        value={data.subtitle}
-                        label="Subtitle"
-                        error={errors.subtitle}
-                        cols="30"
-                    />
-                </div>
-                <div>
-                    <Text
-                        onChange={(value) => setData("preview", value)}
-                        value={data.preview}
-                        label="Preview"
-                        error={errors.preview}
-                        rows="7"
-                    />
-                </div>
-                <div>
-                    <Text
-                        onChange={(value) => setData("description", value)}
-                        value={data.description}
-                        label="Description"
-                        error={errors.description}
-                        rows="15"
-                    />
-                </div>
-                <div className="mx-2">
-                    <SubmitButton isProcessing={processing}>Add</SubmitButton>
-                </div>
-            </form>
+            <div className="md:w-1/3 mb-2">
+                <h3 className="mx-2 mb-2 text-3xl text-center md:text-left">
+                    New book
+                </h3>
+                <form onSubmit={submit} className="space-y-2">
+                    <div>
+                        <Input
+                            onChange={(value) => setData("title", value)}
+                            value={data.title}
+                            label="Title"
+                            error={errors.title}
+                        />
+                    </div>
+                    <div>
+                        <Select
+                            value={data.author_id}
+                            onChange={(value) => setData("author_id", value)}
+                            error={errors.author_id}
+                            options={authors.map(({ id, name }) => ({
+                                value: id,
+                                label: name,
+                            }))}
+                        />
+                    </div>
+                    <div>
+                        <FileUpload
+                            label="Cover image"
+                            accept="image/png, image/jpeg"
+                            onChange={(value) => {
+                                setData("cover", value);
+                            }}
+                            error={errors.cover}
+                            filename={data.cover.name ?? ""}
+                        />
+                    </div>
+                    <div>
+                        <Text
+                            onChange={(value) => setData("subtitle", value)}
+                            value={data.subtitle}
+                            label="Subtitle"
+                            error={errors.subtitle}
+                            cols="30"
+                        />
+                    </div>
+                    <div>
+                        <Text
+                            onChange={(value) => setData("preview", value)}
+                            value={data.preview}
+                            label="Preview"
+                            error={errors.preview}
+                            rows="7"
+                        />
+                    </div>
+                    <div>
+                        <Text
+                            onChange={(value) => setData("description", value)}
+                            value={data.description}
+                            label="Description"
+                            error={errors.description}
+                            rows="15"
+                        />
+                    </div>
+                    <div className="mx-2">
+                        <SubmitButton isProcessing={processing}>
+                            Add
+                        </SubmitButton>
+                    </div>
+                </form>
+            </div>
         </Main>
     );
 };

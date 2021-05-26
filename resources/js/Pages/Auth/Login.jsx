@@ -12,34 +12,41 @@ const Login = () => {
 
     return (
         <Main>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    post("/login");
-                }}
-                className="space-y-2 md:w-1/3"
-            >
-                <div>
-                    <Input
-                        error={errors.email}
-                        label="email"
-                        value={data.email}
-                        onChange={(value) => setData("email", value)}
-                    />
-                </div>
-                <div>
-                    <Input
-                        type="password"
-                        error={errors.password}
-                        value={data.password}
-                        label="password"
-                        onChange={(value) => setData("password", value)}
-                    />
-                </div>
-                <div className="mx-2">
-                    <SubmitButton isProcessing={processing}>Login</SubmitButton>
-                </div>
-            </form>
+            <div className="md:w-1/3">
+                <h3 className="mx-2 mb-2 text-3xl text-center md:text-left">
+                    Login
+                </h3>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        post("/login");
+                    }}
+                    className="space-y-2"
+                >
+                    <div>
+                        <Input
+                            error={errors.email}
+                            label="email"
+                            value={data.email}
+                            onChange={(value) => setData("email", value)}
+                        />
+                    </div>
+                    <div>
+                        <Input
+                            type="password"
+                            error={errors.password}
+                            value={data.password}
+                            label="password"
+                            onChange={(value) => setData("password", value)}
+                        />
+                    </div>
+                    <div className="mx-2">
+                        <SubmitButton isProcessing={processing}>
+                            Login
+                        </SubmitButton>
+                    </div>
+                </form>
+            </div>
         </Main>
     );
 };

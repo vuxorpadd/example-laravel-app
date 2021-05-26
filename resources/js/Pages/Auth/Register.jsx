@@ -24,8 +24,11 @@ const Register = () => {
 
     return (
         <Main>
-            <div>
-                <form onSubmit={submit} className="space-y-2 md:w-1/3">
+            <div className="md:w-1/3">
+                <h3 className="mx-2 mb-2 text-3xl text-center md:text-left">
+                    Register
+                </h3>
+                <form onSubmit={submit} className="space-y-2">
                     <div>
                         <Input
                             onChange={(value) =>
