@@ -6,7 +6,6 @@ use App\Exceptions\CannotGenerateProfilePhotoException;
 use Carbon\Carbon;
 use Faker\Provider\Base;
 use Faker\Provider\Person;
-use Illuminate\Support\Facades\Http;
 
 class PersonFakerProvider extends Base
 {
@@ -19,17 +18,15 @@ class PersonFakerProvider extends Base
      */
     private function profilePhoto(string $gender = Person::GENDER_MALE)
     {
-        try {
-            $url = "https://fakeface.rest/face/json?gender={$gender}&minimum_age=25";
-            $response = Http::get($url)->json();
-        } catch (\Exception $e) {
-            throw new CannotGenerateProfilePhotoException($e);
-        }
+        $genderSlug = $gender === "male" ? "men" : "women";
+        $photoId = rand(1, 99);
+        return "https://randomuser.me/api/portraits/{$genderSlug}/{$photoId}.jpg";
+    }
 
-        return [
-            "metadata" => ["age" => $response["age"]],
-            "photo" => $response["image_url"],
-        ];
+    private function birthday(): string
+    {
+        $age = rand(15, 100);
+        return $this->birthdateFromAge($age);
     }
 
     private function birthdateFromAge(int $age): string
@@ -54,14 +51,11 @@ class PersonFakerProvider extends Base
     public function person(): array
     {
         $gender = $this->generator->randomElement($this->genders);
-        $profilePhoto = $this->profilePhoto($gender);
-
-        $birthdate = $this->birthdateFromAge($profilePhoto["metadata"]["age"]);
 
         return [
             "name" => $this->titlelessName($gender),
-            "photo" => $profilePhoto["photo"],
-            "birthdate" => $birthdate,
+            "photo" => $this->profilePhoto($gender),
+            "birthdate" => $this->birthday(),
         ];
     }
 }
