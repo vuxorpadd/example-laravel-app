@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { arrayOf } from "prop-types";
 import { useForm } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
@@ -8,29 +8,39 @@ import AuthorType from "../../Types/AuthorType";
 import FileUpload from "../../Components/Form/FileUpload";
 import Select from "../../Components/Form/Select";
 import Text from "../../Components/Form/Text";
+import BookType from "../../Types/BookType";
 
-const Edit = ({ authors }) => {
+const Edit = ({ book, authors }) => {
     const { data, setData, post, errors, processing } = useForm({
-        title: "",
-        author_id: authors[0].id ?? "",
-        cover: "",
-        subtitle: "",
-        description: "",
-        preview: "",
+        title: book.title,
+        author_id: book.author_id,
+        cover: null,
+        subtitle: book.subtitle,
+        description: book.description,
+        preview: book.preview,
+        _method: "PUT",
     });
+
+    const [previewFile, setPreviewFile] = useState(null);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("books.store"), {
-            forceFormData: true,
-        });
+        post(route("books.update", { book }), { forceFormData: true });
     };
+
+    useEffect(() => {
+        if (!data.cover) {
+            return;
+        }
+
+        setPreviewFile(URL.createObjectURL(data.cover));
+    }, [data.cover]);
 
     return (
         <Main>
             <div className="md:w-1/3 mb-2">
                 <h3 className="mx-2 mb-2 text-3xl text-center md:text-left">
-                    New book
+                    {data.title}
                 </h3>
                 <form onSubmit={submit} className="space-y-2">
                     <div>
@@ -52,15 +62,36 @@ const Edit = ({ authors }) => {
                             }))}
                         />
                     </div>
-                    <div>
+                    <div className="space-y-2">
+                        <div className="ml-2 space-y-2">
+                            <div className="text-gray-600">
+                                {!data.cover ? (
+                                    "Current cover:"
+                                ) : (
+                                    <>
+                                        <div>New cover preview </div>
+                                        <div className="text-gray-300">
+                                            we will resize it to fit 200x300
+                                            proportions
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <img
+                                src={previewFile || book.cover_url}
+                                alt="Book cover"
+                                className="shadow-md object-cover w-32 h-52"
+                            />
+                        </div>
                         <FileUpload
-                            label="Cover image"
+                            buttonLabel="change cover"
+                            label="New cover image"
                             accept="image/png, image/jpeg"
                             onChange={(value) => {
                                 setData("cover", value);
                             }}
                             error={errors.cover}
-                            filename={data.cover.name ?? ""}
+                            filename={data.cover ? data.cover.name : ""}
                         />
                     </div>
                     <div>
@@ -92,7 +123,7 @@ const Edit = ({ authors }) => {
                     </div>
                     <div className="mx-2">
                         <SubmitButton isProcessing={processing}>
-                            Add
+                            Update
                         </SubmitButton>
                     </div>
                 </form>
@@ -102,6 +133,7 @@ const Edit = ({ authors }) => {
 };
 
 Edit.propTypes = {
+    book: BookType.isRequired,
     authors: arrayOf(AuthorType),
 };
 

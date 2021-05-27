@@ -82,17 +82,27 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $this->validate($request, $this->validationRules());
+        $this->validate(
+            $request,
+            $this->validationRules(["cover" => "nullable|image"])
+        );
 
         $newCover = $request->file("cover");
-        $newCoverPath = $this->bookCoverPath . $newCover->hashName();
 
-        Storage::put($newCoverPath, $this->resizeCover($newCover));
+        $newAttributes = $request->except("cover");
 
-        $oldCoverPath = $book->cover;
+        if ($newCover) {
+            $newCoverPath = $this->bookCoverPath . $newCover->hashName();
+            Storage::put($newCoverPath, $this->resizeCover($newCover));
+            $oldCoverPath = $book->cover;
+            $newAttributes = ["cover" => $newCoverPath] + $newAttributes;
+        }
 
-        $book->update(["cover" => $newCoverPath] + $request->all());
-        Storage::delete($oldCoverPath);
+        $book->update($newAttributes);
+
+        if ($newCover) {
+            Storage::delete($oldCoverPath);
+        }
 
         return redirect(route("books.show", compact("book")));
     }

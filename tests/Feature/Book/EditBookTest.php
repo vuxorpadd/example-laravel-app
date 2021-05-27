@@ -563,11 +563,13 @@ class EditBookTest extends TestCase
     /**
      * @test
      */
-    public function cover_is_required()
+    public function cover_is_optional()
     {
         $user = User::factory()
             ->admin()
             ->create();
+
+        Author::factory(2)->create();
 
         $book = Book::factory()->create($this->oldAttributes());
 
@@ -581,14 +583,16 @@ class EditBookTest extends TestCase
             );
 
         $response->assertStatus(302);
-        $response->assertRedirect("/books/{$book->id}/edit");
+        $response->assertRedirect("/books/{$book->id}");
 
-        $response->assertSessionHasErrors("cover");
+        $response->assertSessionDoesntHaveErrors("cover");
 
         $freshBook = $book->fresh();
 
         \Illuminate\Testing\Assert::assertArraySubset(
-            $this->oldAttributes(),
+            $this->validFields([
+                "cover" => $this->oldAttributes()["cover"],
+            ]),
             $freshBook->getAttributes()
         );
     }

@@ -11,7 +11,7 @@ const BookListCard = ({ book }) => (
         <div className="flex md:space-y-4 md:block gap-4">
             <div>
                 <img
-                    src={book.cover}
+                    src={book.cover_url}
                     alt="Book cover"
                     className="w-32 md:mx-auto md:w-full"
                 />
