@@ -8,6 +8,8 @@ import AuthorType from "../../Types/AuthorType";
 import FileUpload from "../../Components/Form/FileUpload";
 import Select from "../../Components/Form/Select";
 import Text from "../../Components/Form/Text";
+import useUploadPreview from "../../Hooks/useUploadPreview";
+import ImagePreview from "../../Components/ImagePreview";
 
 const Create = ({ authors }) => {
     const { data, setData, post, errors, processing } = useForm({
@@ -18,6 +20,8 @@ const Create = ({ authors }) => {
         description: "",
         preview: "",
     });
+
+    const previewFile = useUploadPreview(data.cover.name ? data.cover : null);
 
     const submit = (e) => {
         e.preventDefault();
@@ -51,6 +55,16 @@ const Create = ({ authors }) => {
                                 label: name,
                             }))}
                         />
+                    </div>
+                    <div className="ml-2">
+                        {previewFile && (
+                            <ImagePreview imageUrl={previewFile}>
+                                <div>Cover preview</div>
+                                <div className="text-gray-300">
+                                    we will resize it to fit 200x300 proportions
+                                </div>
+                            </ImagePreview>
+                        )}
                     </div>
                     <div>
                         <FileUpload

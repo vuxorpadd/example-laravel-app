@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { arrayOf } from "prop-types";
 import { useForm } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
@@ -9,6 +9,8 @@ import FileUpload from "../../Components/Form/FileUpload";
 import Select from "../../Components/Form/Select";
 import Text from "../../Components/Form/Text";
 import BookType from "../../Types/BookType";
+import useUploadPreview from "../../Hooks/useUploadPreview";
+import ImagePreview from "../../Components/ImagePreview";
 
 const Edit = ({ book, authors }) => {
     const { data, setData, post, errors, processing } = useForm({
@@ -21,20 +23,12 @@ const Edit = ({ book, authors }) => {
         _method: "PUT",
     });
 
-    const [previewFile, setPreviewFile] = useState(null);
+    const previewFile = useUploadPreview(data.cover);
 
     const submit = (e) => {
         e.preventDefault();
         post(route("books.update", { book }), { forceFormData: true });
     };
-
-    useEffect(() => {
-        if (!data.cover) {
-            return;
-        }
-
-        setPreviewFile(URL.createObjectURL(data.cover));
-    }, [data.cover]);
 
     return (
         <Main>
@@ -63,25 +57,20 @@ const Edit = ({ book, authors }) => {
                         />
                     </div>
                     <div className="space-y-2">
-                        <div className="ml-2 space-y-2">
-                            <div className="text-gray-600">
-                                {!data.cover ? (
-                                    "Current cover:"
-                                ) : (
-                                    <>
-                                        <div>New cover preview </div>
-                                        <div className="text-gray-300">
-                                            we will resize it to fit 200x300
-                                            proportions
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                            <img
-                                src={previewFile || book.cover_url}
-                                alt="Book cover"
-                                className="shadow-md object-cover w-32 h-52"
-                            />
+                        <div className="ml-2">
+                            {!previewFile ? (
+                                <ImagePreview imageUrl={book.cover_url}>
+                                    Current cover:
+                                </ImagePreview>
+                            ) : (
+                                <ImagePreview imageUrl={previewFile}>
+                                    <div>New cover preview </div>
+                                    <div className="text-gray-300">
+                                        we will resize it to fit 200x300
+                                        proportions
+                                    </div>
+                                </ImagePreview>
+                            )}
                         </div>
                         <FileUpload
                             buttonLabel="change cover"
