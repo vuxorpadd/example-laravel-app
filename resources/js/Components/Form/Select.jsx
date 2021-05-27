@@ -22,7 +22,12 @@ Select.propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     error: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.string),
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            value: PropTypes.number,
+            label: PropTypes.string,
+        })
+    ),
 };
 
 Select.defaultProps = {

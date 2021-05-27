@@ -30,8 +30,8 @@ const Show = ({ book }) => (
                 </div>
                 <h2 className="text-xl">{book.subtitle}</h2>
             </div>
-            <div className="flex flex-col-reverse md:flex-row">
-                <div className="space-y-4 md:border-r-2 md:border-l-2 md:px-4">
+            <div className="flex flex-col-reverse md:flex-row md:flex-grow">
+                <div className="space-y-4 md:border-r-2 md:border-l-2 md:px-4 md:flex-grow">
                     <div>
                         <div className="text-lg">Description:</div>
                         <p>{book.description}</p>
