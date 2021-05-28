@@ -94,4 +94,15 @@ class AuthorController extends Controller
 
         return redirect(route("authors.show", compact("author")));
     }
+
+    public function destroy(Author $author)
+    {
+        $author->delete();
+
+        if (Storage::exists($author->photo)) {
+            Storage::delete($author->photo);
+        }
+
+        return redirect(route("authors.index"));
+    }
 }
