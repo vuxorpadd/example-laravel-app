@@ -6,10 +6,12 @@ use App\ImageService;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AuthorController extends Controller
 {
+    private string $authorPhotosPath = "author-photos/";
     private ImageService $imageService;
 
     public function __construct(ImageService $imageService)
@@ -51,11 +53,45 @@ class AuthorController extends Controller
         ]);
 
         $photo = $request->file("photo");
-        $photoPath = "author-photos/" . $photo->hashName();
+        $photoPath = $this->authorPhotosPath . $photo->hashName();
 
         \Storage::put($photoPath, $this->resizePhoto($photo));
 
         Author::create(["photo" => $photoPath] + $request->all());
         return redirect(route("authors.index"));
+    }
+
+    public function edit(Author $author)
+    {
+        return Inertia::render("Author/Edit", compact("author"));
+    }
+
+    public function update(Request $request, Author $author)
+    {
+        $this->validate($request, [
+            "name" => "required|max:50",
+            "birthdate" => "required|date|before:now",
+            "bio" => "max:10000",
+            "photo" => "nullable|image",
+        ]);
+
+        $newPhoto = $request->file("photo");
+
+        if ($newPhoto) {
+            $oldPhotoPath = $author->photo;
+
+            $newPhotoPath = $this->authorPhotosPath . $newPhoto->hashName();
+            Storage::put($newPhotoPath, $this->resizePhoto($newPhoto));
+
+            $author->photo = $newPhotoPath;
+        }
+
+        $author->update($request->except("photo"));
+
+        if ($newPhoto && Storage::exists($author->photo)) {
+            Storage::delete($oldPhotoPath);
+        }
+
+        return redirect(route("authors.show", compact("author")));
     }
 }

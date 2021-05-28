@@ -119,7 +119,7 @@ class CreateAuthorTest extends TestCase
     /**
      * @test
      */
-    public function admins_can_create_a_author()
+    public function admins_can_create_an_author()
     {
         $this->withoutExceptionHandling();
         $user = User::factory()
