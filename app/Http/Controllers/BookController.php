@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\ImageService;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Image;
 use Inertia\Inertia;
 
 class BookController extends Controller
 {
     private string $bookCoverPath = "book-covers/";
 
+    private ImageService $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
     private function resizeCover(
         UploadedFile $cover
     ): \Psr\Http\Message\StreamInterface {
-        $imageManager = Image::make($cover->path());
-        $imageManager = $imageManager->fit(200, 300);
-        return $imageManager->stream();
+        return $this->imageService->resizeImage($cover, 200, 300);
     }
 
     private function validationRules(array $overrides = []): array

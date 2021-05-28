@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\ImageService;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Image;
 use Inertia\Inertia;
 
 class AuthorController extends Controller
 {
-    private function resizeImage(
-        UploadedFile $image
+    private ImageService $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
+    private function resizePhoto(
+        UploadedFile $cover
     ): \Psr\Http\Message\StreamInterface {
-        $imageManager = Image::make($image->path());
-        $imageManager = $imageManager->fit(300, 300);
-        return $imageManager->stream();
+        return $this->imageService->resizeImage($cover, 300, 300);
     }
 
     public function index()
@@ -48,7 +53,7 @@ class AuthorController extends Controller
         $photo = $request->file("photo");
         $photoPath = "author-photos/" . $photo->hashName();
 
-        \Storage::put($photoPath, $this->resizeImage($photo));
+        \Storage::put($photoPath, $this->resizePhoto($photo));
 
         Author::create(["photo" => $photoPath] + $request->all());
         return redirect(route("authors.index"));
