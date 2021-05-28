@@ -106,4 +106,15 @@ class BookController extends Controller
 
         return redirect(route("books.show", compact("book")));
     }
+
+    public function delete(Book $book)
+    {
+        $book->delete();
+
+        if (Storage::exists($book->cover)) {
+            Storage::delete($book->cover);
+        }
+
+        return redirect(route("books.index"));
+    }
 }

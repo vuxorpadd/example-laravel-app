@@ -40,6 +40,9 @@ Route::group(["middleware" => ["auth", "checkRole:admin"]], function () {
     Route::put("/books/{book}", [BookController::class, "update"])->name(
         "books.update"
     );
+    Route::delete("/books/{book}", [BookController::class, "delete"])->name(
+        "books.destroy"
+    );
 });
 
 Route::get("/books/{book}", [BookController::class, "show"])->name(
