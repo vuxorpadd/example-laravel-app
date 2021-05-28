@@ -9,6 +9,7 @@ class Author extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["name", "birthdate", "bio", "photo"];
     protected $casts = ["birthdate" => "datetime:Y-m-d"];
 
     public function books(): \Illuminate\Database\Eloquent\Relations\HasMany

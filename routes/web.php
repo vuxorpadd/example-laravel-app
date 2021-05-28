@@ -25,8 +25,6 @@ Route::middleware(["auth:sanctum", "verified"])
     ->name("dashboard");
 
 //Custom
-Route::get("/books", [BookController::class, "index"])->name("books.index");
-
 Route::group(["middleware" => ["auth", "checkRole:admin"]], function () {
     Route::get("/books/create", [BookController::class, "create"])->name(
         "books.create"
@@ -43,8 +41,16 @@ Route::group(["middleware" => ["auth", "checkRole:admin"]], function () {
     Route::delete("/books/{book}", [BookController::class, "delete"])->name(
         "books.destroy"
     );
+
+    Route::get("/authors/create", [AuthorController::class, "create"])->name(
+        "authors.create"
+    );
+    Route::post("/authors", [AuthorController::class, "store"])->name(
+        "authors.store"
+    );
 });
 
+Route::get("/books", [BookController::class, "index"])->name("books.index");
 Route::get("/books/{book}", [BookController::class, "show"])->name(
     "books.show"
 );

@@ -17,7 +17,7 @@ class CreateAuthorsTable extends Migration
             $table->id();
             $table->string("name");
             $table->date("birthdate");
-            $table->text("bio");
+            $table->text("bio")->nullable();
             $table->string("photo");
             $table->timestamps();
         });
