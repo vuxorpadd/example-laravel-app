@@ -112,7 +112,7 @@ class BookController extends Controller
         return redirect(route("books.show", compact("book")));
     }
 
-    public function delete(Book $book)
+    public function destroy(Book $book)
     {
         $book->delete();
 

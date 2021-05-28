@@ -26,38 +26,18 @@ Route::middleware(["auth:sanctum", "verified"])
 
 //Custom
 Route::group(["middleware" => ["auth", "checkRole:admin"]], function () {
-    Route::get("/books/create", [BookController::class, "create"])->name(
-        "books.create"
-    );
-    Route::post("/books", [BookController::class, "store"])->name(
-        "books.store"
-    );
-    Route::get("/books/{book}/edit", [BookController::class, "edit"])->name(
-        "books.edit"
-    );
-    Route::put("/books/{book}", [BookController::class, "update"])->name(
-        "books.update"
-    );
-    Route::delete("/books/{book}", [BookController::class, "delete"])->name(
-        "books.destroy"
-    );
-
-    Route::get("/authors/create", [AuthorController::class, "create"])->name(
-        "authors.create"
-    );
-    Route::post("/authors", [AuthorController::class, "store"])->name(
-        "authors.store"
-    );
+    Route::resource("books", BookController::class);
+    Route::resource("authors", AuthorController::class);
 });
 
-Route::get("/books", [BookController::class, "index"])->name("books.index");
-Route::get("/books/{book}", [BookController::class, "show"])->name(
-    "books.show"
-);
+Route::name("books.")->group(function () {
+    Route::get("/books", [BookController::class, "index"])->name("index");
+    Route::get("/books/{book}", [BookController::class, "show"])->name("show");
+});
 
-Route::get("/authors", [AuthorController::class, "index"])->name(
-    "authors.index"
-);
-Route::get("/authors/{author}", [AuthorController::class, "show"])->name(
-    "authors.show"
-);
+Route::name("authors.")->group(function () {
+    Route::get("/authors", [AuthorController::class, "index"])->name("index");
+    Route::get("/authors/{author}", [AuthorController::class, "show"])->name(
+        "show"
+    );
+});
