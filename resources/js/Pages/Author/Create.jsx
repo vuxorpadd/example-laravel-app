@@ -1,31 +1,27 @@
 import React from "react";
-import { arrayOf } from "prop-types";
 import { useForm } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
 import SubmitButton from "../../Components/Form/SubmitButton";
 import Input from "../../Components/Form/Input";
-import AuthorType from "../../Types/AuthorType";
 import FileUpload from "../../Components/Form/FileUpload";
-import Select from "../../Components/Form/Select";
 import Text from "../../Components/Form/Text";
 import useUploadPreview from "../../Hooks/useUploadPreview";
 import ImagePreview from "../../Components/ImagePreview";
+import Date from "../../Components/Form/Date";
 
 const Create = () => {
     const { data, setData, post, errors, processing } = useForm({
-        title: "",
-        author_id: authors[0].id ?? "",
-        cover: "",
-        subtitle: "",
-        description: "",
-        preview: "",
+        name: "",
+        birthdate: "",
+        bio: "",
+        photo: "",
     });
 
-    const previewFile = useUploadPreview(data.cover.name ? data.cover : null);
+    const previewFile = useUploadPreview(data.photo.name ? data.photo : null);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("books.store"), {
+        post(route("authors.store"), {
             forceFormData: true,
         });
     };
@@ -34,74 +30,53 @@ const Create = () => {
         <Main>
             <div className="md:w-1/3 mb-2">
                 <h3 className="mx-2 mb-2 text-3xl text-center md:text-left">
-                    New book
+                    New author
                 </h3>
                 <form onSubmit={submit} className="space-y-2">
                     <div>
                         <Input
-                            onChange={(value) => setData("title", value)}
-                            value={data.title}
-                            label="Title"
-                            error={errors.title}
+                            onChange={(value) => setData("name", value)}
+                            value={data.name}
+                            label="Name"
+                            error={errors.name}
                         />
                     </div>
                     <div>
-                        <Select
-                            value={data.author_id}
-                            onChange={(value) => setData("author_id", value)}
-                            error={errors.author_id}
-                            options={authors.map(({ id, name }) => ({
-                                value: id,
-                                label: name,
-                            }))}
+                        <Date
+                            onChange={(value) => setData("birthdate", value)}
+                            value={data.birthdate}
+                            error={errors.birthdate}
+                            label="Birthdate"
                         />
                     </div>
                     <div className="ml-2">
                         {previewFile && (
-                            <ImagePreview imageUrl={previewFile}>
-                                <div>Cover preview</div>
+                            <ImagePreview imageUrl={previewFile} width="300">
+                                <div>Photo preview</div>
                                 <div className="text-gray-300">
-                                    we will resize it to fit 200x300 proportions
+                                    we will resize it to fit 300x300 proportions
                                 </div>
                             </ImagePreview>
                         )}
                     </div>
                     <div>
                         <FileUpload
-                            label="Cover image"
+                            label="Photo image"
                             accept="image/png, image/jpeg"
                             onChange={(value) => {
-                                setData("cover", value);
+                                setData("photo", value);
                             }}
-                            error={errors.cover}
-                            filename={data.cover.name ?? ""}
+                            error={errors.photo}
+                            filename={data.photo.name ?? ""}
                         />
                     </div>
                     <div>
                         <Text
-                            onChange={(value) => setData("subtitle", value)}
-                            value={data.subtitle}
-                            label="Subtitle"
-                            error={errors.subtitle}
+                            onChange={(value) => setData("bio", value)}
+                            value={data.bio}
+                            label="Bio"
+                            error={errors.bio}
                             cols="30"
-                        />
-                    </div>
-                    <div>
-                        <Text
-                            onChange={(value) => setData("preview", value)}
-                            value={data.preview}
-                            label="Preview"
-                            error={errors.preview}
-                            rows="7"
-                        />
-                    </div>
-                    <div>
-                        <Text
-                            onChange={(value) => setData("description", value)}
-                            value={data.description}
-                            label="Description"
-                            error={errors.description}
-                            rows="15"
                         />
                     </div>
                     <div className="mx-2">
@@ -113,14 +88,6 @@ const Create = () => {
             </div>
         </Main>
     );
-};
-
-Create.propTypes = {
-    authors: arrayOf(AuthorType),
-};
-
-Create.defaultProps = {
-    authors: [],
 };
 
 export default Create;

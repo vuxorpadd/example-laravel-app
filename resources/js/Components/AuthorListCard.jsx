@@ -6,12 +6,12 @@ const AuthorListCard = ({ author }) => (
     <button
         type="button"
         onClick={() => Inertia.get(route("authors.show", { author }))}
-        className="bg-gray-50 p-2 m-2 rounded-md shadow-md hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-200"
+        className="bg-gray-50 rounded-md shadow-md hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-200"
     >
         <div className="space-y-4 block">
             <div className="align-middle">
                 <img
-                    src={author.photo}
+                    src={author.photo_url}
                     alt="Author"
                     className="w-96 inline-flex"
                 />
