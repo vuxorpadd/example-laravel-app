@@ -6,16 +6,16 @@ import Input from "../../Components/Form/Input";
 import FileUpload from "../../Components/Form/FileUpload";
 import Text from "../../Components/Form/Text";
 import useUploadPreview from "../../Hooks/useUploadPreview";
-import Date from "../../Components/Form/Date";
 import AuthorType from "../../Types/AuthorType";
 import ResizeNotice from "../../Components/ResizeNotice";
 import { AUTHOR_PHOTO_H, AUTHOR_PHOTO_W } from "../../Constants/general";
 import AuthorPhotoPreview from "../../Components/AuthorPhotoPreview";
+import DateInput from "../../Components/Form/DateInput";
 
 const Edit = ({ author }) => {
     const { data, setData, post, errors, processing } = useForm({
         name: author.name,
-        birthdate: author.birthdate,
+        birthdate: new Date(author.birthdate),
         bio: author.bio,
         photo: null,
         _method: "PUT",
@@ -46,7 +46,7 @@ const Edit = ({ author }) => {
                         />
                     </div>
                     <div>
-                        <Date
+                        <DateInput
                             onChange={(value) => setData("birthdate", value)}
                             value={data.birthdate}
                             error={errors.birthdate}

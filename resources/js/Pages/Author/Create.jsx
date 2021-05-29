@@ -6,15 +6,15 @@ import Input from "../../Components/Form/Input";
 import FileUpload from "../../Components/Form/FileUpload";
 import Text from "../../Components/Form/Text";
 import useUploadPreview from "../../Hooks/useUploadPreview";
-import Date from "../../Components/Form/Date";
 import AuthorPhotoPreview from "../../Components/AuthorPhotoPreview";
 import ResizeNotice from "../../Components/ResizeNotice";
 import { AUTHOR_PHOTO_H, AUTHOR_PHOTO_W } from "../../Constants/general";
+import DateInput from "../../Components/Form/DateInput";
 
 const Create = () => {
     const { data, setData, post, errors, processing } = useForm({
         name: "",
-        birthdate: "",
+        birthdate: new Date(),
         bio: "",
         photo: "",
     });
@@ -44,7 +44,7 @@ const Create = () => {
                         />
                     </div>
                     <div>
-                        <Date
+                        <DateInput
                             onChange={(value) => setData("birthdate", value)}
                             value={data.birthdate}
                             error={errors.birthdate}
