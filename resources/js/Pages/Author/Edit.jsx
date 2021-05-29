@@ -6,9 +6,11 @@ import Input from "../../Components/Form/Input";
 import FileUpload from "../../Components/Form/FileUpload";
 import Text from "../../Components/Form/Text";
 import useUploadPreview from "../../Hooks/useUploadPreview";
-import ImagePreview from "../../Components/ImagePreview";
 import Date from "../../Components/Form/Date";
 import AuthorType from "../../Types/AuthorType";
+import ResizeNotice from "../../Components/ResizeNotice";
+import { AUTHOR_PHOTO_H, AUTHOR_PHOTO_W } from "../../Constants/general";
+import AuthorPhotoPreview from "../../Components/AuthorPhotoPreview";
 
 const Edit = ({ author }) => {
     const { data, setData, post, errors, processing } = useForm({
@@ -54,30 +56,22 @@ const Edit = ({ author }) => {
                     <div className="space-y-2">
                         <div className="ml-2">
                             {!previewFile ? (
-                                <ImagePreview
-                                    imageUrl={author.photo_url}
-                                    width={300}
-                                    height={300}
-                                >
+                                <AuthorPhotoPreview imageUrl={author.photo_url}>
                                     Current cover:
-                                </ImagePreview>
+                                </AuthorPhotoPreview>
                             ) : (
-                                <ImagePreview
-                                    imageUrl={previewFile}
-                                    width={300}
-                                    height={300}
-                                >
+                                <AuthorPhotoPreview imageUrl={previewFile}>
                                     <div>New photo preview </div>
-                                    <div className="text-gray-300">
-                                        we will resize it to fit 300x300
-                                        proportions
-                                    </div>
-                                </ImagePreview>
+                                    <ResizeNotice
+                                        height={AUTHOR_PHOTO_H}
+                                        width={AUTHOR_PHOTO_W}
+                                    />
+                                </AuthorPhotoPreview>
                             )}
                         </div>
                         <FileUpload
                             buttonLabel="change photo"
-                            label="New photo image"
+                            label="New photo"
                             accept="image/png, image/jpeg"
                             onChange={(value) => {
                                 setData("photo", value);
@@ -92,7 +86,7 @@ const Edit = ({ author }) => {
                             value={data.bio}
                             label="Bio"
                             error={errors.bio}
-                            cols="30"
+                            rows="15"
                         />
                     </div>
                     <div className="mx-2">

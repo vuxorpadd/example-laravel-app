@@ -9,7 +9,9 @@ import FileUpload from "../../Components/Form/FileUpload";
 import Select from "../../Components/Form/Select";
 import Text from "../../Components/Form/Text";
 import useUploadPreview from "../../Hooks/useUploadPreview";
-import ImagePreview from "../../Components/ImagePreview";
+import { BOOK_COVER_H, BOOK_COVER_W } from "../../Constants/general";
+import BookCoverPreview from "../../Components/BookCoverPreview";
+import ResizeNotice from "../../Components/ResizeNotice";
 
 const Create = ({ authors }) => {
     const { data, setData, post, errors, processing } = useForm({
@@ -58,12 +60,13 @@ const Create = ({ authors }) => {
                     </div>
                     <div className="ml-2">
                         {previewFile && (
-                            <ImagePreview imageUrl={previewFile}>
+                            <BookCoverPreview imageUrl={previewFile}>
                                 <div>Cover preview</div>
-                                <div className="text-gray-300">
-                                    we will resize it to fit 200x300 proportions
-                                </div>
-                            </ImagePreview>
+                                <ResizeNotice
+                                    height={BOOK_COVER_H}
+                                    width={BOOK_COVER_W}
+                                />
+                            </BookCoverPreview>
                         )}
                     </div>
                     <div>

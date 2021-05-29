@@ -6,8 +6,10 @@ import Input from "../../Components/Form/Input";
 import FileUpload from "../../Components/Form/FileUpload";
 import Text from "../../Components/Form/Text";
 import useUploadPreview from "../../Hooks/useUploadPreview";
-import ImagePreview from "../../Components/ImagePreview";
 import Date from "../../Components/Form/Date";
+import AuthorPhotoPreview from "../../Components/AuthorPhotoPreview";
+import ResizeNotice from "../../Components/ResizeNotice";
+import { AUTHOR_PHOTO_H, AUTHOR_PHOTO_W } from "../../Constants/general";
 
 const Create = () => {
     const { data, setData, post, errors, processing } = useForm({
@@ -51,17 +53,18 @@ const Create = () => {
                     </div>
                     <div className="ml-2">
                         {previewFile && (
-                            <ImagePreview imageUrl={previewFile} width="300">
+                            <AuthorPhotoPreview imageUrl={previewFile}>
                                 <div>Photo preview</div>
-                                <div className="text-gray-300">
-                                    we will resize it to fit 300x300 proportions
-                                </div>
-                            </ImagePreview>
+                                <ResizeNotice
+                                    height={AUTHOR_PHOTO_H}
+                                    width={AUTHOR_PHOTO_W}
+                                />
+                            </AuthorPhotoPreview>
                         )}
                     </div>
                     <div>
                         <FileUpload
-                            label="Photo image"
+                            label="Photo"
                             accept="image/png, image/jpeg"
                             onChange={(value) => {
                                 setData("photo", value);
@@ -76,7 +79,7 @@ const Create = () => {
                             value={data.bio}
                             label="Bio"
                             error={errors.bio}
-                            cols="30"
+                            rows="15"
                         />
                     </div>
                     <div className="mx-2">
