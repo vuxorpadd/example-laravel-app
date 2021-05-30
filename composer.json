@@ -21,11 +21,12 @@
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
-        "bluemmb/faker-picsum-photos-provider": "^2.0",
         "barryvdh/laravel-ide-helper": "^2.9",
+        "bluemmb/faker-picsum-photos-provider": "^2.0",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
+        "laravel/telescope": "^4.4",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3",
@@ -39,7 +40,8 @@
     "extra": {
         "laravel": {
             "dont-discover": [
-                "barryvdh/laravel-ide-helper"
+                "barryvdh/laravel-ide-helper",
+                "laravel/telescope"
             ]
         }
     },
