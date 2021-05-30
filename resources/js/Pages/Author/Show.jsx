@@ -14,7 +14,9 @@ const Show = ({ author }) => {
     return (
         <Main>
             <div className="space-y-4">
-                <h1 className="text-3xl">{author.name}</h1>
+                <h1 className="text-3xl text-center md:text-left">
+                    {author.name}
+                </h1>
                 <div className="space-y-2 md:space-y-0 md:space-x-4 md:flex">
                     <div className="flex-none w-96">
                         <img
@@ -23,34 +25,36 @@ const Show = ({ author }) => {
                             className="w-96 inline"
                         />
                     </div>
-                    <div className="space-y-2 flex-grow">
-                        <div>Born: {author.birthdate}</div>
-                        <div>{author.bio}</div>
-                    </div>
-                    <AdminOnly>
-                        <div className="flex-none w-40 text-center space-y-2">
-                            <div>
-                                <InertiaLink
-                                    className="btn btn-primary"
-                                    href={route("authors.edit", { author })}
-                                >
-                                    Edit
-                                </InertiaLink>
-                            </div>
-                            <div>
-                                <button
-                                    type="button"
-                                    className="mb-4 underline"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        deleteAuthor();
-                                    }}
-                                >
-                                    Delete
-                                </button>
-                            </div>
+                    <div className="space-y-2 flex flex-col-reverse md:flex-row">
+                        <div className="space-y-2">
+                            <div>Born: {author.birthdate}</div>
+                            <div>{author.bio}</div>
                         </div>
-                    </AdminOnly>
+                        <AdminOnly>
+                            <div className="md:flex-none md:w-40 text-center space-y-2">
+                                <div>
+                                    <InertiaLink
+                                        className="btn btn-primary"
+                                        href={route("authors.edit", { author })}
+                                    >
+                                        Edit
+                                    </InertiaLink>
+                                </div>
+                                <div>
+                                    <button
+                                        type="button"
+                                        className="mb-4 underline"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            deleteAuthor();
+                                        }}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </AdminOnly>
+                    </div>
                 </div>
                 <BookList books={author.books} />
             </div>
