@@ -25,19 +25,5 @@ Route::middleware(["auth:sanctum", "verified"])
     ->name("dashboard");
 
 //Custom
-Route::group(["middleware" => ["auth", "checkRole:admin"]], function () {
-    Route::resource("books", BookController::class);
-    Route::resource("authors", AuthorController::class);
-});
-
-Route::name("books.")->group(function () {
-    Route::get("/books", [BookController::class, "index"])->name("index");
-    Route::get("/books/{book}", [BookController::class, "show"])->name("show");
-});
-
-Route::name("authors.")->group(function () {
-    Route::get("/authors", [AuthorController::class, "index"])->name("index");
-    Route::get("/authors/{author}", [AuthorController::class, "show"])->name(
-        "show"
-    );
-});
+Route::resource("books", BookController::class);
+Route::resource("authors", AuthorController::class);

@@ -17,6 +17,8 @@ class AuthorController extends Controller
     public function __construct(ImageService $imageService)
     {
         $this->imageService = $imageService;
+        $this->middleware("auth", ["except" => ["index", "show"]]);
+        $this->authorizeResource(Author::class, "author");
     }
 
     private function resizePhoto(

@@ -19,6 +19,8 @@ class BookController extends Controller
     public function __construct(ImageService $imageService)
     {
         $this->imageService = $imageService;
+        $this->middleware("auth", ["except" => ["index", "show"]]);
+        $this->authorizeResource(Book::class, "book");
     }
 
     private function resizeCover(
