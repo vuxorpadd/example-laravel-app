@@ -1,10 +1,11 @@
 import React from "react";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import { Inertia } from "@inertiajs/inertia";
+import PropTypes from "prop-types";
 import Main from "../../Layouts/Main";
 import BookType from "../../Types/BookType";
 
-const Show = ({ book }) => {
+const Show = ({ book, permissions }) => {
     const deleteBook = () => {
         Inertia.delete(route("books.destroy", { book }));
     };
@@ -50,26 +51,30 @@ const Show = ({ book }) => {
                         </div>
                     </div>
                     <div className="md:flex-none md:ml-6">
-                        <div className="text-center">
-                            <InertiaLink
-                                className="btn btn-primary mb-4"
-                                href={route("books.edit", { book })}
-                            >
-                                Edit
-                            </InertiaLink>
-                        </div>
-                        <div className="text-center">
-                            <button
-                                type="button"
-                                className="mb-4 underline"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    deleteBook();
-                                }}
-                            >
-                                Delete
-                            </button>
-                        </div>
+                        {permissions.update && (
+                            <div className="text-center">
+                                <InertiaLink
+                                    className="btn btn-primary mb-4"
+                                    href={route("books.edit", { book })}
+                                >
+                                    Edit
+                                </InertiaLink>
+                            </div>
+                        )}
+                        {permissions.delete && (
+                            <div className="text-center">
+                                <button
+                                    type="button"
+                                    className="mb-4 underline"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        deleteBook();
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -79,6 +84,7 @@ const Show = ({ book }) => {
 
 Show.propTypes = {
     book: BookType,
+    permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
 };
 
 Show.defaultProps = {

@@ -2140,10 +2140,6 @@ select{
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
-img {
-  height: initial;
-}
-
 .space-y-0 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));

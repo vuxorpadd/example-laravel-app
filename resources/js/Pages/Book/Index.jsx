@@ -4,34 +4,30 @@ import { InertiaLink } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
 import BookList from "../../Components/BookList";
 import BookType from "../../Types/BookType";
-import useIsAdmin from "../../Hooks/useIsAdmin";
 
-const Index = ({ books }) => {
-    const isAdmin = useIsAdmin();
-
-    return (
-        <Main>
-            <div className="space-y-4">
-                {isAdmin && (
-                    <div>
-                        <InertiaLink
-                            className="btn btn-primary"
-                            href={route("books.create")}
-                        >
-                            Add
-                        </InertiaLink>
-                    </div>
-                )}
+const Index = ({ books, permissions }) => (
+    <Main>
+        <div className="space-y-4">
+            {permissions.create && (
                 <div>
-                    <BookList books={books} />
+                    <InertiaLink
+                        className="btn btn-primary"
+                        href={route("books.create")}
+                    >
+                        Add
+                    </InertiaLink>
                 </div>
+            )}
+            <div>
+                <BookList books={books} />
             </div>
-        </Main>
-    );
-};
+        </div>
+    </Main>
+);
 
 Index.propTypes = {
     books: PropTypes.arrayOf(BookType),
+    permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
 };
 
 Index.defaultProps = {

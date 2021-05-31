@@ -1,12 +1,12 @@
 import React from "react";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import { Inertia } from "@inertiajs/inertia";
+import PropTypes from "prop-types";
 import AuthorType from "../../Types/AuthorType";
 import Main from "../../Layouts/Main";
 import BookList from "../../Components/BookList";
-import AdminOnly from "../../Components/AdminOnly";
 
-const Show = ({ author }) => {
+const Show = ({ author, permissions }) => {
     const deleteAuthor = () => {
         Inertia.delete(route("authors.destroy", { author }));
     };
@@ -30,16 +30,20 @@ const Show = ({ author }) => {
                             <div>Born: {author.birthdate}</div>
                             <div>{author.bio}</div>
                         </div>
-                        <AdminOnly>
-                            <div className="md:flex-none md:w-40 text-center space-y-2">
+                        <div className="md:flex-none md:w-40 text-center space-y-2">
+                            {permissions.update && (
                                 <div>
                                     <InertiaLink
                                         className="btn btn-primary"
-                                        href={route("authors.edit", { author })}
+                                        href={route("authors.edit", {
+                                            author,
+                                        })}
                                     >
                                         Edit
                                     </InertiaLink>
                                 </div>
+                            )}
+                            {permissions.delete && (
                                 <div>
                                     <button
                                         type="button"
@@ -52,8 +56,8 @@ const Show = ({ author }) => {
                                         Delete
                                     </button>
                                 </div>
-                            </div>
-                        </AdminOnly>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <BookList books={author.books} />
@@ -64,6 +68,7 @@ const Show = ({ author }) => {
 
 Show.propTypes = {
     author: AuthorType,
+    permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
 };
 
 Show.defaultProps = {

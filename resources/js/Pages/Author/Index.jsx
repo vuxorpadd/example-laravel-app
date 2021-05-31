@@ -4,12 +4,11 @@ import PropTypes from "prop-types";
 import AuthorType from "../../Types/AuthorType";
 import Main from "../../Layouts/Main";
 import AuthorListCard from "../../Components/AuthorListCard";
-import AdminOnly from "../../Components/AdminOnly";
 
-const Index = ({ authors }) => (
+const Index = ({ authors, permissions }) => (
     <Main>
         <div className="space-y-4">
-            <AdminOnly>
+            {permissions.create && (
                 <div>
                     <InertiaLink
                         className="btn btn-primary"
@@ -18,7 +17,7 @@ const Index = ({ authors }) => (
                         Add
                     </InertiaLink>
                 </div>
-            </AdminOnly>
+            )}
             <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {authors.map((author) => (
                     <AuthorListCard key={author.id} author={author} />
@@ -30,6 +29,7 @@ const Index = ({ authors }) => (
 
 Index.propTypes = {
     authors: PropTypes.arrayOf(AuthorType),
+    permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
 };
 
 Index.defaultProps = {

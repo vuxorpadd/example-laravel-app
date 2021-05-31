@@ -30,13 +30,22 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return Inertia::render("Author/Index", ["authors" => $authors]);
+        return Inertia::render("Author/Index", [
+            "authors" => $authors,
+            "permissions" => [
+                "create" => \Gate::allows("create", Author::class),
+            ],
+        ]);
     }
 
     public function show(Author $author)
     {
         return Inertia::render("Author/Show", [
             "author" => $author->load("books"),
+            "permissions" => [
+                "update" => \Gate::allows("update", $author),
+                "delete" => \Gate::allows("delete", $author),
+            ],
         ]);
     }
 

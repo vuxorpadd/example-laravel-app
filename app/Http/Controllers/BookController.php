@@ -47,12 +47,23 @@ class BookController extends Controller
     public function index(): \Inertia\Response
     {
         $books = Book::all();
-        return Inertia::render("Book/Index", ["books" => $books]);
+        return Inertia::render("Book/Index", [
+            "books" => $books,
+            "permissions" => [
+                "create" => \Gate::allows("create", Book::class),
+            ],
+        ]);
     }
 
     public function show(Book $book): \Inertia\Response
     {
-        return Inertia::render("Book/Show", ["book" => $book]);
+        return Inertia::render("Book/Show", [
+            "book" => $book,
+            "permissions" => [
+                "update" => \Gate::allows("update", $book),
+                "delete" => \Gate::allows("delete", $book),
+            ],
+        ]);
     }
 
     public function create()
