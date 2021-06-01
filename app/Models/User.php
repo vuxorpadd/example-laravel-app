@@ -64,4 +64,11 @@ class User extends Authenticatable
     {
         return $this->role !== self::ROLE_ADMIN;
     }
+
+    public function wishlist()
+    {
+        Wishlist::firstOrCreate(["user_id" => $this->id]);
+
+        return $this->hasOne(Wishlist::class);
+    }
 }

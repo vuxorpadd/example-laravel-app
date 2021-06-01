@@ -23,6 +23,13 @@ class Book extends Model
 
     protected $appends = ["cover_url"];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(fn($book) => $book->removeFromWishlists());
+    }
+
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Author::class);
@@ -35,5 +42,15 @@ class Book extends Model
             : $this->cover;
 
         return asset($url);
+    }
+
+    public function wishlists()
+    {
+        return $this->belongsToMany(Wishlist::class);
+    }
+
+    public function removeFromWishlists()
+    {
+        $this->wishlists()->detach();
     }
 }

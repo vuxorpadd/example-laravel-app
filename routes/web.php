@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,3 +28,9 @@ Route::middleware(["auth:sanctum", "verified"])
 //Custom
 Route::resource("books", BookController::class);
 Route::resource("authors", AuthorController::class);
+
+Route::put("/wishlist/addremove/{book}", [
+    WishlistController::class,
+    "addremove",
+]);
+Route::put("/wishlist/clear", [WishlistController::class, "clear"]);
