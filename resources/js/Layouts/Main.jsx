@@ -7,6 +7,7 @@ import menuItems from "../Menu/MenuItems";
 import authMenuItems from "../Menu/AuthMenuItems";
 import useUser from "../Hooks/useUser";
 import ProfileAvatar from "../Components/ProfileAvatar";
+import WishlistMenuItem from "../Components/WishlistMenuItem";
 
 const Main = ({ children }) => {
     const user = useUser();
@@ -32,6 +33,9 @@ const Main = ({ children }) => {
                                 <div className="inline-flex mr-16 md:mr-auto">
                                     <ProfileAvatar user={user} />
                                 </div>
+                                <div>
+                                    <WishlistMenuItem />
+                                </div>
                             </>
                         )}
                         <div className="hidden md:inline-flex">
@@ -48,7 +52,7 @@ const Main = ({ children }) => {
                 </div>
             </header>
 
-            <div className="px-4 py-2 mt-20 container mx-auto">{children}</div>
+            <div className="px-4 py-2 mt-24 container mx-auto">{children}</div>
         </>
     );
 };

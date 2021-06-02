@@ -29,10 +29,15 @@ Route::middleware(["auth:sanctum", "verified"])
 Route::resource("books", BookController::class);
 Route::resource("authors", AuthorController::class);
 
+Route::get("/wishlist", [WishlistController::class, "show"])->name(
+    "wishlist.show"
+);
+
 Route::put("/wishlist/addremove/{book}", [
     WishlistController::class,
     "addremove",
 ])->name("wishlist.addremove");
+
 Route::put("/wishlist/clear", [WishlistController::class, "clear"])->name(
     "wishlist.clear"
 );

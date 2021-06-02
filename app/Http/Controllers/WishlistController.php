@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Inertia\Inertia;
 
 class WishlistController extends Controller
 {
@@ -32,5 +33,10 @@ class WishlistController extends Controller
             ->delete();
 
         return back();
+    }
+
+    public function show()
+    {
+        return Inertia::render("Wishlist/Show");
     }
 }
