@@ -20,6 +20,8 @@ class WishlistController extends Controller
         } else {
             $wishlist->books()->attach($book);
         }
+
+        return back();
     }
 
     public function clear()
@@ -28,5 +30,7 @@ class WishlistController extends Controller
             ->user()
             ->wishlist->books()
             ->delete();
+
+        return back();
     }
 }

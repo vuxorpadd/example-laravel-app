@@ -14,7 +14,7 @@ const Main = ({ children }) => {
     return (
         <>
             <header>
-                <div className="fixed top-0 p-4 w-full bg-white shadow-md flex md:items-center">
+                <div className="fixed top-0 p-4 w-full bg-white shadow-md flex md:items-center z-10">
                     <h1 className="text-3xl font-bold text-red-500 font-logo">
                         <InertiaLink href="/">
                             <span className="md:hidden">BS</span>

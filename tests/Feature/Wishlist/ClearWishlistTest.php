@@ -43,9 +43,12 @@ class ClearWishlistTest extends TestCase
 
         $this->assertCount(2, $wishlist->books);
 
-        $response = $this->actingAs($user)->put("/wishlist/clear");
+        $response = $this->from("anypage")
+            ->actingAs($user)
+            ->put("/wishlist/clear");
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect("/anypage");
 
         $freshWishlist = $wishlist->fresh();
 

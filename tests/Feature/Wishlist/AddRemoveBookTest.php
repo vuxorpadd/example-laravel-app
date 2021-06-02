@@ -35,11 +35,12 @@ class AddRemoveBookTest extends TestCase
         $wishlist = Wishlist::factory()->create(["user_id" => $user->id]);
         $book = Book::factory()->create();
 
-        $response = $this->actingAs($user)->put(
-            "/wishlist/addremove/{$book->id}"
-        );
+        $response = $this->from("/anypage")
+            ->actingAs($user)
+            ->put("/wishlist/addremove/{$book->id}");
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect("/anypage");
 
         $freshWishlist = $wishlist->fresh();
 
@@ -60,11 +61,12 @@ class AddRemoveBookTest extends TestCase
 
         $this->assertCount(1, $wishlist->books);
 
-        $response = $this->actingAs($user)->put(
-            "/wishlist/addremove/{$book->id}"
-        );
+        $response = $this->from("anypage")
+            ->actingAs($user)
+            ->put("/wishlist/addremove/{$book->id}");
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect("/anypage");
 
         $freshWishlist = $wishlist->fresh();
 

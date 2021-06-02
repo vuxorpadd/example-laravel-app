@@ -32,5 +32,7 @@ Route::resource("authors", AuthorController::class);
 Route::put("/wishlist/addremove/{book}", [
     WishlistController::class,
     "addremove",
-]);
-Route::put("/wishlist/clear", [WishlistController::class, "clear"]);
+])->name("wishlist.addremove");
+Route::put("/wishlist/clear", [WishlistController::class, "clear"])->name(
+    "wishlist.clear"
+);
