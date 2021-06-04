@@ -15,4 +15,9 @@ class Wishlist extends Model
     {
         return $this->belongsToMany(Book::class);
     }
+
+    public function isEmpty()
+    {
+        return $this->books->isEmpty();
+    }
 }

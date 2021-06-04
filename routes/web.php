@@ -41,3 +41,8 @@ Route::put("/wishlist/addremove/{book}", [
 Route::put("/wishlist/clear", [WishlistController::class, "clear"])->name(
     "wishlist.clear"
 );
+
+Route::post("/wishlist/send-to-email", [
+    WishlistController::class,
+    "sendToEmail",
+])->name("wishlist.send-to-email");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WishlistEmail;
 use App\Models\Book;
 use Inertia\Inertia;
 
@@ -38,5 +39,14 @@ class WishlistController extends Controller
     public function show()
     {
         return Inertia::render("Wishlist/Show");
+    }
+
+    public function sendToEmail()
+    {
+        $user = auth()->user();
+
+        abort_if($user->wishlist->isEmpty(), 409);
+
+        \Mail::to($user)->send(new WishlistEmail($user->wishlist));
     }
 }
