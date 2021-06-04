@@ -45,8 +45,14 @@ class WishlistController extends Controller
     {
         $user = auth()->user();
 
-        abort_if($user->wishlist->isEmpty(), 409);
+        if ($user->wishlist->isEmpty()) {
+            return redirect(route("wishlist.show"))->withErrors([
+                "wishlist" => "Wishlist is empty",
+            ]);
+        }
 
         \Mail::to($user)->send(new WishlistEmail($user->wishlist));
+
+        return redirect(route("wishlist.show"));
     }
 }

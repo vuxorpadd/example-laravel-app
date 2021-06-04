@@ -43,7 +43,8 @@ class SendToEmailTest extends TestCase
 
         $response = $this->actingAs($user)->post("/wishlist/send-to-email");
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect("/wishlist");
 
         \Mail::assertSent(function (WishlistEmail $email) use (
             $user,
@@ -68,7 +69,10 @@ class SendToEmailTest extends TestCase
 
         $response = $this->actingAs($user)->post("/wishlist/send-to-email");
 
-        $response->assertStatus(409);
+        $response->assertStatus(302);
+        $response->assertRedirect("/wishlist");
+
+        $response->assertSessionHasErrors("wishlist");
 
         \Mail::assertNotSent(WishlistEmail::class);
     }
