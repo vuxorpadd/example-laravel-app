@@ -41,6 +41,7 @@ class ClearWishlistTest extends TestCase
         $books = Book::factory(2)->create();
         $wishlist->books()->attach($books);
 
+        $this->assertDatabaseCount("books", 2);
         $this->assertCount(2, $wishlist->books);
 
         $response = $this->from("anypage")
@@ -53,5 +54,6 @@ class ClearWishlistTest extends TestCase
         $freshWishlist = $wishlist->fresh();
 
         $this->assertCount(0, $freshWishlist->books);
+        $this->assertDatabaseCount("books", 2);
     }
 }

@@ -31,7 +31,7 @@ class WishlistController extends Controller
         auth()
             ->user()
             ->wishlist->books()
-            ->delete();
+            ->detach();
 
         return back();
     }
