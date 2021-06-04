@@ -15,39 +15,45 @@ const Main = ({ children }) => {
     return (
         <>
             <header>
-                <div className="fixed top-0 p-4 w-full bg-white shadow-md flex md:items-center z-10">
-                    <h1 className="text-3xl font-bold text-red-500 font-logo">
-                        <InertiaLink href="/">
-                            <span className="md:hidden">BS</span>
-                            <span className="hidden md:inline">Book Shelf</span>
-                        </InertiaLink>
-                    </h1>
+                <div className="fixed top-0 p-4 w-full bg-white shadow-md z-10">
+                    <div className="w-full relative">
+                        <div className="flex mr-14 md:mr-0 items-center">
+                            <h1 className="text-3xl font-bold text-red-500 font-logo">
+                                <InertiaLink href="/">
+                                    <span className="md:hidden">BS</span>
+                                    <span className="hidden md:inline">
+                                        Book Shelf
+                                    </span>
+                                </InertiaLink>
+                            </h1>
 
-                    <div className="hidden md:block ml-20">
-                        <Navigation menuItems={menuItems} />
-                    </div>
+                            <div className="hidden md:block ml-20">
+                                <Navigation menuItems={menuItems} />
+                            </div>
 
-                    <div className="ml-auto flex items-center space-x-4">
-                        {user && (
-                            <>
-                                <div className="inline-flex mr-16 md:mr-auto">
-                                    <ProfileAvatar user={user} />
+                            <div className="ml-auto flex items-center space-x-4">
+                                {user && (
+                                    <>
+                                        <div className="hidden md:block">
+                                            <ProfileAvatar user={user} />
+                                        </div>
+                                        <div>
+                                            <WishlistMenuItem />
+                                        </div>
+                                    </>
+                                )}
+                                <div className="hidden md:inline-flex">
+                                    <Navigation menuItems={authMenuItems} />
                                 </div>
-                                <div>
-                                    <WishlistMenuItem />
-                                </div>
-                            </>
-                        )}
-                        <div className="hidden md:inline-flex">
-                            <Navigation menuItems={authMenuItems} />
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="md:hidden">
-                        <HamburgerMenu
-                            menuItems={menuItems}
-                            authMenuItems={authMenuItems}
-                        />
+                        <div className="md:hidden">
+                            <HamburgerMenu
+                                menuItems={menuItems}
+                                authMenuItems={authMenuItems}
+                            />
+                        </div>
                     </div>
                 </div>
             </header>

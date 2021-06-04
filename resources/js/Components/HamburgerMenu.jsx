@@ -34,7 +34,7 @@ const HamburgerMenu = ({ menuItems, authMenuItems }) => {
 
     return (
         <>
-            <div className="absolute right-0 top-0 px-4 py-2 z-20">
+            <div className="absolute right-0 top-1 z-20">
                 <Hamburger toggled={showMenu} toggle={setShowMenu} />
             </div>
 

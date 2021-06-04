@@ -5,8 +5,11 @@ import PropTypes from "prop-types";
 import Main from "../../Layouts/Main";
 import BookType from "../../Types/BookType";
 import WishlistButton from "../../Components/WishlistButton";
+import useWishlist from "../../Hooks/useWishlist";
 
 const Show = ({ book, permissions }) => {
+    const wishlist = useWishlist();
+
     const deleteBook = () => {
         Inertia.delete(route("books.destroy", { book }));
     };
@@ -37,9 +40,11 @@ const Show = ({ book, permissions }) => {
                         />
                     </div>
                     <h2 className="text-xl">{book.subtitle}</h2>
-                    <div className="border-b-2 pb-4 md:pb-0 md:border-b-0 border-gray-50">
-                        <WishlistButton book={book} />
-                    </div>
+                    {wishlist && (
+                        <div className="border-b-2 pb-4 md:pb-0 md:border-b-0 border-gray-50">
+                            <WishlistButton book={book} />
+                        </div>
+                    )}
                 </div>
                 <div className="flex flex-col-reverse md:flex-row md:flex-grow">
                     <div className="space-y-4 md:border-r-2 md:border-l-2 md:px-4 md:flex-grow">

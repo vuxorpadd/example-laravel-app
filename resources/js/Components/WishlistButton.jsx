@@ -8,7 +8,7 @@ const WishlistButton = ({ book }) => {
     const wishlist = useWishlist();
 
     const active = wishlist
-        ? wishlist.find((wishlistBook) => wishlistBook.id === book.id)
+        ? !!wishlist.find((wishlistBook) => wishlistBook.id === book.id)
         : false;
 
     return (
