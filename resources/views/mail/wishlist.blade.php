@@ -11,7 +11,7 @@
                     class="inline-flex p-2 bg-gray-50 rounded-md shadow-md hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-200">
                     <div class="flex md:space-y-4 md:block gap-4">
                         <a href={{ route("books.show", ['book' => $book] )}}>
-                            <img src="{{ $book->cover_url }}"
+                            <img src="{{ $book->cover_path ? $message->embed($book->cover_path) : $book->cover_url }}"
                                  alt="Book cover"
                                  class="w-32 md:mx-auto md:w-full"
                             />

@@ -21,7 +21,7 @@ class Book extends Model
         "cover",
     ];
 
-    protected $appends = ["cover_url"];
+    protected $appends = ["cover_url", "cover_path"];
 
     protected static function boot()
     {
@@ -42,6 +42,13 @@ class Book extends Model
             : $this->cover;
 
         return asset($url);
+    }
+
+    public function getCoverPathAttribute()
+    {
+        return Storage::exists($this->cover)
+            ? Storage::path($this->cover)
+            : null;
     }
 
     public function wishlists()

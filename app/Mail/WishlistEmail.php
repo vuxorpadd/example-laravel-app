@@ -9,7 +9,8 @@ use Illuminate\Queue\SerializesModels;
 
 class WishlistEmail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public Wishlist $wishlist;
 
