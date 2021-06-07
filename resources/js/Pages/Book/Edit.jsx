@@ -15,7 +15,7 @@ import BookCoverPreview from "../../Components/BookCoverPreview";
 import ResizeNotice from "../../Components/ResizeNotice";
 
 const Edit = ({ book, authors }) => {
-    const { data, setData, post, errors, processing } = useForm({
+    const { data, setData, post, errors, processing, clearErrors } = useForm({
         title: book.title,
         author_id: book.author_id,
         cover: null,
@@ -32,6 +32,11 @@ const Edit = ({ book, authors }) => {
         post(route("books.update", { book }), { forceFormData: true });
     };
 
+    const changeFieldValue = (field, value) => {
+        clearErrors(field);
+        setData(field, value);
+    };
+
     return (
         <Main>
             <div className="md:w-1/3 mb-2">
@@ -41,7 +46,9 @@ const Edit = ({ book, authors }) => {
                 <form onSubmit={submit} className="space-y-2">
                     <div>
                         <Input
-                            onChange={(value) => setData("title", value)}
+                            onChange={(value) =>
+                                changeFieldValue("title", value)
+                            }
                             value={data.title}
                             label="Title"
                             error={errors.title}
@@ -50,7 +57,9 @@ const Edit = ({ book, authors }) => {
                     <div>
                         <Select
                             value={data.author_id}
-                            onChange={(value) => setData("author_id", value)}
+                            onChange={(value) =>
+                                changeFieldValue("author_id", value)
+                            }
                             error={errors.author_id}
                             options={authors.map(({ id, name }) => ({
                                 value: id,
@@ -79,7 +88,7 @@ const Edit = ({ book, authors }) => {
                             label="New cover image"
                             accept="image/png, image/jpeg"
                             onChange={(value) => {
-                                setData("cover", value);
+                                changeFieldValue("cover", value);
                             }}
                             error={errors.cover}
                             filename={data.cover ? data.cover.name : ""}
@@ -87,7 +96,9 @@ const Edit = ({ book, authors }) => {
                     </div>
                     <div>
                         <Text
-                            onChange={(value) => setData("subtitle", value)}
+                            onChange={(value) =>
+                                changeFieldValue("subtitle", value)
+                            }
                             value={data.subtitle}
                             label="Subtitle"
                             error={errors.subtitle}
@@ -96,7 +107,9 @@ const Edit = ({ book, authors }) => {
                     </div>
                     <div>
                         <Text
-                            onChange={(value) => setData("preview", value)}
+                            onChange={(value) =>
+                                changeFieldValue("preview", value)
+                            }
                             value={data.preview}
                             label="Preview"
                             error={errors.preview}
@@ -105,7 +118,9 @@ const Edit = ({ book, authors }) => {
                     </div>
                     <div>
                         <Text
-                            onChange={(value) => setData("description", value)}
+                            onChange={(value) =>
+                                changeFieldValue("description", value)
+                            }
                             value={data.description}
                             label="Description"
                             error={errors.description}
