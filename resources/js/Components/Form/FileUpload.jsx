@@ -14,18 +14,19 @@ const FileUpload = ({
         <div className="text-gray-600 my-2">
             {label}: <span className="">{filename || "none"}</span>
         </div>
-        <div className="bg-gray-500 text-white p-2 font-bold uppercase shadow-md rounded-md text-center w-full">
-            <label htmlFor="file-upload">
-                <span className="">{buttonLabel}</span>
-                <input
-                    id="file-upload"
-                    type="file"
-                    onChange={(e) => onChange(e.target.files[0])}
-                    className="hidden"
-                    {...rest}
-                />
-            </label>
-        </div>
+        <label
+            htmlFor="file-upload"
+            className="bg-gray-500 p-2 text-white font-bold uppercase shadow-md rounded-md text-center w-full block"
+        >
+            <span className="">{buttonLabel}</span>
+            <input
+                id="file-upload"
+                type="file"
+                onChange={(e) => onChange(e.target.files[0])}
+                className="hidden"
+                {...rest}
+            />
+        </label>
     </FieldWithError>
 );
 
