@@ -32,10 +32,11 @@ class ListAuthorsTest extends TestCase
     public function authors_are_sorted_by_creation_date()
     {
         Author::factory()->createMany([
-            ["id" => 1, "created_at" => Carbon::create("2020-01-03")],
-            ["id" => 2, "created_at" => Carbon::create("2020-01-01")],
-            ["id" => 3, "created_at" => Carbon::create("2020-01-04")],
-            ["id" => 4, "created_at" => Carbon::create("2020-01-02")],
+            ["id" => 1, "created_at" => Carbon::create("2020-01-03 00:59")],
+            ["id" => 2, "created_at" => Carbon::create("2020-01-01 01:00")],
+            ["id" => 3, "created_at" => Carbon::create("2020-01-04 01:00")],
+            ["id" => 4, "created_at" => Carbon::create("2020-01-02 01:00")],
+            ["id" => 5, "created_at" => Carbon::create("2020-01-03 01:00")],
         ]);
         $response = $this->get("/authors");
 
@@ -44,7 +45,7 @@ class ListAuthorsTest extends TestCase
         $response->assertInertia(
             fn(Assert $page) => $page->where("authors", function ($authors) {
                 $this->assertEquals(
-                    [3, 1, 4, 2],
+                    [3, 5, 1, 4, 2],
                     $authors->pluck("id")->toArray()
                 );
 

@@ -13,8 +13,6 @@ class Author extends Model
     protected $fillable = ["name", "birthdate", "bio", "photo"];
     protected $casts = ["birthdate" => "date:Y-m-d"];
     protected $appends = ["photo_url"];
-    protected $dates = ["birthdate"];
-    protected $dateFormat = "Y-m-d";
 
     public function books(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
