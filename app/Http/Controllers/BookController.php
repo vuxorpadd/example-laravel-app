@@ -46,7 +46,7 @@ class BookController extends Controller
 
     public function index(): \Inertia\Response
     {
-        $books = Book::all();
+        $books = Book::orderByDesc("created_at")->get();
         return Inertia::render("Book/Index", [
             "books" => $books,
             "permissions" => [

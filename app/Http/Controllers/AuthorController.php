@@ -29,7 +29,7 @@ class AuthorController extends Controller
 
     public function index()
     {
-        $authors = Author::all();
+        $authors = Author::orderByDesc("created_at")->get();
         return Inertia::render("Author/Index", [
             "authors" => $authors,
             "permissions" => [
