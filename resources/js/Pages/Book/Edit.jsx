@@ -14,9 +14,9 @@ const Edit = ({ book, authors }) => (
                     title: book.title,
                     author_id: book.author_id,
                     cover: null,
-                    subtitle: book.subtitle,
-                    description: book.description,
-                    preview: book.preview,
+                    subtitle: book.subtitle || "",
+                    description: book.description || "",
+                    preview: book.preview || "",
                     _method: "PUT",
                 }}
             >

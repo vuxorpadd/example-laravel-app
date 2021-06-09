@@ -10,7 +10,7 @@ const Edit = ({ author }) => (
                 defaults={{
                     name: author.name,
                     birthdate: new Date(author.birthdate),
-                    bio: author.bio,
+                    bio: author.bio || "",
                     photo: null,
                     _method: "PUT",
                 }}
