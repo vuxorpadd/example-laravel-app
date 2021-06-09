@@ -17,14 +17,13 @@ const MenuItems = ({ items, render }) => {
 
     return itemsToShow.map((item) => {
         const data = {
+            ...item,
             onClick: (e) => {
                 if (item.action) {
                     e.preventDefault();
                     item.action();
                 }
             },
-            href: item.href,
-            label: item.label,
         };
 
         return render(data);

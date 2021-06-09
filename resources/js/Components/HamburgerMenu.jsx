@@ -42,19 +42,19 @@ const HamburgerMenu = ({ menuItems, authMenuItems }) => {
                 <div className="z-10">
                     <div className="bg-white fixed inset-0 flex" />
                     <div className="fixed inset-0 flex">
-                        <div className="m-auto p-10 space-y-8 text-gray-800 w-full h-full mt-16">
+                        <div className="m-auto p-10 space-y-4 text-gray-800 w-full h-full mt-16">
                             {user && (
                                 <div className="border-b pb-8">
                                     <ProfileCard user={user} />
                                 </div>
                             )}
-                            <div className="space-y-8 border-b pb-8">
+                            <div className="space-y-4 border-b py-4">
                                 <HamburgerMenuSection
                                     menuItems={menuItems}
                                     onMenuItemClick={closeMenu}
                                 />
                             </div>
-                            <div className="space-y-8">
+                            <div className="space-y-4">
                                 <HamburgerMenuSection
                                     menuItems={authMenuItems}
                                     onMenuItemClick={closeMenu}

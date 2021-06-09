@@ -7,6 +7,7 @@ import AuthorListCard from "../../Components/AuthorListCard";
 
 const Index = ({ authors, permissions }) => (
     <Main>
+        <h2 className="mb-4 text-3xl text-gray-600">Authors</h2>
         <div className="space-y-4">
             {permissions.create && (
                 <div>
