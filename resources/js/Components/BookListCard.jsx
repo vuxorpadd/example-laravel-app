@@ -8,15 +8,17 @@ const BookListCard = ({ book }) => {
     const wishlist = useWishlist();
 
     return (
-        <div className="inline-flex p-2 bg-gray-50 rounded-md shadow-md hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-200">
+        <div className="p-2 bg-gray-50 rounded-md shadow-md hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-200">
             <div className="flex md:space-y-4 md:block gap-4">
-                <InertiaLink href={route("books.show", { book })}>
-                    <img
-                        src={book.cover_url}
-                        alt="Book cover"
-                        className="w-32 md:mx-auto md:w-full"
-                    />
-                </InertiaLink>
+                <div className="w-32 md:w-full flex-none">
+                    <InertiaLink href={route("books.show", { book })}>
+                        <img
+                            src={book.cover_url}
+                            alt="Book cover"
+                            className="md:mx-auto"
+                        />
+                    </InertiaLink>
+                </div>
                 <div className="flex-grow text-left md:space-y-2">
                     <div className="flex gap-2">
                         <div className="flex-grow">
