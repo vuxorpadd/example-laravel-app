@@ -17,4 +17,8 @@
     .btn-primary {
         @apply bg-red-500 text-white hover:bg-red-400;
     }
+
+    .date-field .react-datepicker-wrapper{
+        @apply w-full;
+    }
 }

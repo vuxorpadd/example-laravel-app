@@ -6,12 +6,15 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const DateInput = ({ value, onChange, error, label }) => (
     <FieldWithError error={error}>
-        <DatePicker
-            selected={value}
-            onChange={(date) => onChange(date)}
-            dateFormat="yyyy-MM-dd"
-            placeholder={label}
-        />
+        <div className="date-field">
+            <DatePicker
+                selected={value}
+                onChange={(date) => onChange(date)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText={label}
+                className="form-control"
+            />
+        </div>
     </FieldWithError>
 );
 
