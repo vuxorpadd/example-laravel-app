@@ -14,6 +14,6 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
-        Author::factory(20)->create();
+        Author::factory(100)->create();
     }
 }
