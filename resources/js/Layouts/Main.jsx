@@ -16,8 +16,8 @@ const Main = ({ children }) => {
         <>
             <header>
                 <div className="fixed top-0 p-4 w-full bg-white shadow-md z-10">
-                    <div className="w-full relative">
-                        <div className="flex mr-14 md:mr-0 items-center">
+                    <div className="w-full relative flex">
+                        <div className="flex md:mr-0 items-center flex-grow">
                             <h1 className="text-3xl font-bold text-red-500 font-logo">
                                 <InertiaLink href="/">
                                     <span className="md:hidden">BS</span>
@@ -34,11 +34,11 @@ const Main = ({ children }) => {
                             <div className="ml-auto flex items-center space-x-4">
                                 {user && (
                                     <>
-                                        <div className="hidden md:block">
-                                            <ProfileMenuItem user={user} />
-                                        </div>
                                         <div>
                                             <WishlistMenuItem />
+                                        </div>
+                                        <div className="hidden md:block">
+                                            <ProfileMenuItem user={user} />
                                         </div>
                                     </>
                                 )}
@@ -52,7 +52,7 @@ const Main = ({ children }) => {
                             </div>
                         </div>
 
-                        <div className="md:hidden">
+                        <div className="inline-block ml-auto w-12 h-14 relative md:hidden">
                             <HamburgerMenu
                                 menuItems={menuItems}
                                 authMenuItems={authMenuItems}
