@@ -3,36 +3,40 @@ import PropTypes from "prop-types";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import Main from "../../Layouts/Main";
 import BookList from "../../Components/BookList";
-import BookType from "../../Types/BookType";
+import useScrollPagination from "../../Hooks/useScrollPagination";
+import PaginatorType from "../../Types/PaginatorType";
 
-const Index = ({ books, permissions }) => (
-    <Main>
-        <h2 className="mb-4 text-3xl text-gray-600">Books</h2>
-        <div className="space-y-4">
-            {permissions.create && (
+const Index = ({ paginator, permissions }) => {
+    const { LoadMoreButton, data } = useScrollPagination(paginator);
+
+    return (
+        <Main>
+            <h2 className="mb-4 text-3xl text-gray-600">Books</h2>
+            <div className="space-y-4">
+                {permissions.create && (
+                    <div>
+                        <InertiaLink
+                            className="btn btn-primary"
+                            href={route("books.create")}
+                        >
+                            Add
+                        </InertiaLink>
+                    </div>
+                )}
                 <div>
-                    <InertiaLink
-                        className="btn btn-primary"
-                        href={route("books.create")}
-                    >
-                        Add
-                    </InertiaLink>
+                    <BookList books={data} />
                 </div>
-            )}
-            <div>
-                <BookList books={books} />
+                <div className="py-4">
+                    <LoadMoreButton />
+                </div>
             </div>
-        </div>
-    </Main>
-);
-
-Index.propTypes = {
-    books: PropTypes.arrayOf(BookType),
-    permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
+        </Main>
+    );
 };
 
-Index.defaultProps = {
-    books: [],
+Index.propTypes = {
+    paginator: PaginatorType.isRequired,
+    permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
 };
 
 export default Index;

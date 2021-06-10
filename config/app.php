@@ -229,4 +229,13 @@ return [
         "View" => Illuminate\Support\Facades\View::class,
         "Image" => Intervention\Image\Facades\Image::class,
     ],
+
+    "settings" => [
+        "books" => [
+            "items_per_page" => 36,
+        ],
+        "authors" => [
+            "items_per_page" => 15,
+        ],
+    ],
 ];

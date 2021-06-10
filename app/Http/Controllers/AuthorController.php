@@ -29,9 +29,14 @@ class AuthorController extends Controller
 
     public function index()
     {
-        $authors = Author::orderByDesc("created_at")->get();
+        $paginator = Author::orderByDesc("created_at")->simplePaginate(
+            config("app.settings.authors.items_per_page")
+        );
+
+        abort_if($paginator->currentPage() > 1 && $paginator->isEmpty(), 404);
+
         return Inertia::render("Author/Index", [
-            "authors" => $authors,
+            "paginator" => $paginator,
             "permissions" => [
                 "create" => \Gate::allows("create", Author::class),
             ],
@@ -41,7 +46,11 @@ class AuthorController extends Controller
     public function show(Author $author)
     {
         return Inertia::render("Author/Show", [
-            "author" => $author->load("books"),
+            "author" => $author,
+            "booksPaginator" => $author
+                ->books()
+                ->orderByDesc("created_at")
+                ->paginate(config("app.settings.books.items_per_page")),
             "permissions" => [
                 "update" => \Gate::allows("update", $author),
                 "delete" => \Gate::allows("delete", $author),

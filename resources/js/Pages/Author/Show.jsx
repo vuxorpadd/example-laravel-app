@@ -5,11 +5,18 @@ import PropTypes from "prop-types";
 import AuthorType from "../../Types/AuthorType";
 import Main from "../../Layouts/Main";
 import BookList from "../../Components/BookList";
+import PaginatorType from "../../Types/PaginatorType";
+import useScrollPagination from "../../Hooks/useScrollPagination";
 
-const Show = ({ author, permissions }) => {
+const Show = ({ author, booksPaginator, permissions }) => {
     const deleteAuthor = () => {
         Inertia.delete(route("authors.destroy", { author }));
     };
+
+    const { LoadMoreButton, data: books } = useScrollPagination(
+        booksPaginator,
+        "booksPaginator"
+    );
 
     return (
         <Main>
@@ -60,7 +67,10 @@ const Show = ({ author, permissions }) => {
                         </div>
                     </div>
                 </div>
-                <BookList books={author.books} />
+                <BookList books={books} />
+                <div className="py-4">
+                    <LoadMoreButton />
+                </div>
             </div>
         </Main>
     );
@@ -68,6 +78,7 @@ const Show = ({ author, permissions }) => {
 
 Show.propTypes = {
     author: AuthorType,
+    booksPaginator: PaginatorType.isRequired,
     permissions: PropTypes.objectOf(() => PropTypes.boolean).isRequired,
 };
 

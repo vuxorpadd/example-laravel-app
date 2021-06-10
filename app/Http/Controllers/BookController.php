@@ -46,9 +46,14 @@ class BookController extends Controller
 
     public function index(): \Inertia\Response
     {
-        $books = Book::orderByDesc("created_at")->get();
+        $paginator = Book::orderByDesc("created_at")->simplePaginate(
+            config("app.settings.books.items_per_page")
+        );
+
+        abort_if($paginator->currentPage() > 1 && $paginator->isEmpty(), 404);
+
         return Inertia::render("Book/Index", [
-            "books" => $books,
+            "paginator" => $paginator,
             "permissions" => [
                 "create" => \Gate::allows("create", Book::class),
             ],
