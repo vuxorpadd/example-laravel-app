@@ -32,12 +32,12 @@ const Show = ({ author, booksPaginator, permissions }) => {
                             className="w-96 inline"
                         />
                     </div>
-                    <div className="space-y-2 flex flex-col-reverse md:flex-row">
-                        <div className="space-y-2">
+                    <div className="space-y-2 flex flex-col-reverse md:flex-row md:flex-grow">
+                        <div className="space-y-2 md:flex-grow">
                             <div>Born: {author.birthdate}</div>
                             <div>{author.bio}</div>
                         </div>
-                        <div className="md:flex-none md:w-40 text-center space-y-2">
+                        <div className="md:flex-none md:w-40 text-center space-y-2 md:border-l-2 md:pl-2 md:ml-2">
                             {permissions.update && (
                                 <div>
                                     <InertiaLink
@@ -67,7 +67,20 @@ const Show = ({ author, booksPaginator, permissions }) => {
                         </div>
                     </div>
                 </div>
-                <BookList books={books} />
+                <div>
+                    {books.length > 0 ? (
+                        <>
+                            <h2 className="mb-4 text-xl text-gray-600">
+                                {`${author.name}'s books`}
+                            </h2>
+                            <BookList books={books} />
+                        </>
+                    ) : (
+                        <span>
+                            {`${author.name} hasn't written any books yet`}
+                        </span>
+                    )}
+                </div>
                 <div className="py-4">
                     <LoadMoreButton />
                 </div>
