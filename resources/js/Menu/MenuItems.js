@@ -1,11 +1,13 @@
 const menuItems = [
     {
+        id: "books",
         label: "Books",
         href: route("books.index"),
         role: "*",
         components: ["Book/Index", "Book/Show", "Book/Edit"],
     },
     {
+        id: "authors",
         label: "Authors",
         href: route("authors.index"),
         role: "*",

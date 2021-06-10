@@ -6,8 +6,8 @@ import HamburgerMenu from "../Components/HamburgerMenu";
 import menuItems from "../Menu/MenuItems";
 import authMenuItems from "../Menu/AuthMenuItems";
 import useUser from "../Hooks/useUser";
-import ProfileAvatar from "../Components/ProfileAvatar";
 import WishlistMenuItem from "../Components/WishlistMenuItem";
+import ProfileMenuItem from "../Components/ProfileMenuItem";
 
 const Main = ({ children }) => {
     const user = useUser();
@@ -35,7 +35,7 @@ const Main = ({ children }) => {
                                 {user && (
                                     <>
                                         <div className="hidden md:block">
-                                            <ProfileAvatar user={user} />
+                                            <ProfileMenuItem user={user} />
                                         </div>
                                         <div>
                                             <WishlistMenuItem />
@@ -43,7 +43,11 @@ const Main = ({ children }) => {
                                     </>
                                 )}
                                 <div className="hidden md:inline-flex">
-                                    <Navigation menuItems={authMenuItems} />
+                                    <Navigation
+                                        menuItems={authMenuItems.filter(
+                                            (item) => item.id !== "logout"
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>
