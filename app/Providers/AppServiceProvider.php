@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Faker\CustomFakerFactory;
+use App\Faker\ProfilePicture\ProfilePictureService;
+use App\Faker\ProfilePicture\UnsplashProfilePictureService;
 use Faker\Generator;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -34,6 +36,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(Generator::class, function ($app) {
             return $app->make(CustomFakerFactory::class)->create();
         });
+
+        $this->app->bind(
+            ProfilePictureService::class,
+            UnsplashProfilePictureService::class
+        );
     }
 
     /**

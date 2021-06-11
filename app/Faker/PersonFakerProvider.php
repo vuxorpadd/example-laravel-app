@@ -2,25 +2,21 @@
 
 namespace App\Faker;
 
-use App\Exceptions\CannotGenerateProfilePhotoException;
+use App\Faker\Exceptions\CannotGenerateProfilePhotoException;
+use App\Faker\ProfilePicture\ProfilePictureService;
 use Carbon\Carbon;
+use Faker\Generator;
 use Faker\Provider\Base;
-use Faker\Provider\Person;
 
 class PersonFakerProvider extends Base
 {
-    private array $genders = [Person::GENDER_MALE, Person::GENDER_FEMALE];
+    private ProfilePictureService $profilePictureService;
 
-    /**
-     * @param string $gender
-     * @return mixed
-     * @throws CannotGenerateProfilePhotoException
-     */
-    private function profilePhoto(string $gender = Person::GENDER_MALE)
+    public function __construct(Generator $generator)
     {
-        $genderSlug = $gender === "male" ? "men" : "women";
-        $photoId = rand(1, 99);
-        return "https://randomuser.me/api/portraits/{$genderSlug}/{$photoId}.jpg";
+        parent::__construct($generator);
+
+        $this->profilePictureService = app(ProfilePictureService::class);
     }
 
     private function birthday(): string
@@ -37,9 +33,9 @@ class PersonFakerProvider extends Base
         return "$birthYear-$birthDay";
     }
 
-    public function titlelessName(string $gender = Person::GENDER_MALE)
+    public function titlelessName(Gender $gender)
     {
-        return $this->generator->firstName($gender) .
+        return $this->generator->firstName((string) $gender) .
             " " .
             $this->generator->lastName;
     }
@@ -50,11 +46,11 @@ class PersonFakerProvider extends Base
      */
     public function person(): array
     {
-        $gender = $this->generator->randomElement($this->genders);
+        $gender = Gender::random();
 
         return [
             "name" => $this->titlelessName($gender),
-            "photo" => $this->profilePhoto($gender),
+            "photo" => $this->profilePictureService->generateRandom($gender),
             "birthdate" => $this->birthday(),
         ];
     }

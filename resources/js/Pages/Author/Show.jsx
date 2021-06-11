@@ -29,7 +29,7 @@ const Show = ({ author, booksPaginator, permissions }) => {
                         <img
                             src={author.photo_url}
                             alt="Author"
-                            className="w-96 inline"
+                            className="w-96 inline object-cover"
                         />
                     </div>
                     <div className="space-y-2 flex flex-col-reverse md:flex-row md:flex-grow">

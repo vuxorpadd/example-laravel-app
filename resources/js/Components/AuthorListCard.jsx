@@ -14,8 +14,7 @@ const AuthorListCard = ({ author }) => (
                 <LazyImage
                     alt="Author"
                     src={author.photo_url}
-                    className="p-4"
-                    width="285"
+                    className="p-4 h-72 w-72 md:h-64 md:w-64 object-cover"
                 />
             </div>
             <div>{author.name}</div>
