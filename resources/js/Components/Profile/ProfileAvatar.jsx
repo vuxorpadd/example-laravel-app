@@ -1,5 +1,5 @@
 import React from "react";
-import UserType from "../Types/UserType";
+import UserType from "../../Types/UserType";
 
 const ProfileAvatar = ({ user }) => (
     <div className="text-white bg-gray-700 rounded-full ring-2 ring-gray-200 p-2">

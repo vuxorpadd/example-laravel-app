@@ -7,7 +7,7 @@ import menuItems from "../Menu/MenuItems";
 import authMenuItems from "../Menu/AuthMenuItems";
 import useUser from "../Hooks/useUser";
 import WishlistMenuItem from "../Components/WishlistMenuItem";
-import ProfileMenuItem from "../Components/ProfileMenuItem";
+import ProfileMenuItem from "../Components/Profile/ProfileMenuItem";
 
 const Main = ({ children }) => {
     const user = useUser();

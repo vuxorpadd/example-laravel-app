@@ -7,7 +7,7 @@ import {
 } from "body-scroll-lock";
 import MenuItemsType from "../Types/MenuItemsType";
 import HamburgerMenuSection from "./HamburgerMenuSection";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "./Profile/ProfileCard";
 import useUser from "../Hooks/useUser";
 
 const HamburgerMenu = ({ menuItems, authMenuItems }) => {

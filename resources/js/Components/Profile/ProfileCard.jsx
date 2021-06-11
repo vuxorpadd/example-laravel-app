@@ -1,5 +1,5 @@
 import React from "react";
-import UserType from "../Types/UserType";
+import UserType from "../../Types/UserType";
 import ProfileAvatar from "./ProfileAvatar";
 
 const ProfileCard = ({ user }) => (
