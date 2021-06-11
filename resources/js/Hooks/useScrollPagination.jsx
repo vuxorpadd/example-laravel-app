@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import { useRemember } from "@inertiajs/inertia-react";
+
+const getItemsIds = (items) => items.map((item) => item.id);
+
+const getNewUniqueItems = (existingItems, newItems) => {
+    const existingItemIds = getItemsIds(existingItems);
+    return newItems.filter((newItem) => !existingItemIds.includes(newItem.id));
+};
 
 export default function useScrollPagination(
     paginator,
     paginatorParamName = "paginator"
 ) {
-    const [data, setData] = useState([]);
+    const [data, setData] = useRemember([]);
 
     useEffect(() => {
-        setData([...data, ...paginator.data]);
+        setData([...data, ...getNewUniqueItems(data, paginator.data)]);
     }, [paginator]);
 
     const loadMore = () => {
