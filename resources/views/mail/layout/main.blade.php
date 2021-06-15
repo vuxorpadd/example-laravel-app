@@ -10,7 +10,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @if(file_exists(public_path('css/app.css')) && filesize(public_path('css/app.css')) < 200000)
+        <style>
+            @php
+                include_once(public_path('css/app.css'))
+            @endphp
+        </style>
+    @else
+        <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
+    @endif
+
 </head>
 
 <body class="font-sans antialiased">

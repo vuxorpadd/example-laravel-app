@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('mail.layout.main')
 
 @section('content')
     <div class="p-4">
