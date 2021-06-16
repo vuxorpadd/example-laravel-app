@@ -36,7 +36,10 @@ return [
         "public" => [
             "driver" => "local",
             "root" => storage_path("app/public"),
-            "url" => env("APP_URL") . "/storage",
+            "url" =>
+                (env("LARAVEL_SAIL")
+                    ? env("APP_SAIL_URL", "http://localhost")
+                    : env("APP_URL", "http://localhost:8000")) . "/storage",
             "visibility" => "public",
         ],
 

@@ -51,7 +51,9 @@ return [
     |
     */
 
-    "url" => env("APP_URL", "http://localhost"),
+    "url" => env("LARAVEL_SAIL")
+        ? env("APP_SAIL_URL", "http://localhost")
+        : env("APP_URL", "http://localhost:8000"),
 
     "asset_url" => env("ASSET_URL", null),
 
