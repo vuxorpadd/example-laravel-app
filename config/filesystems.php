@@ -36,10 +36,7 @@ return [
         "public" => [
             "driver" => "local",
             "root" => storage_path("app/public"),
-            "url" =>
-                (env("LARAVEL_SAIL")
-                    ? env("APP_SAIL_URL", "http://localhost")
-                    : env("APP_URL", "http://localhost:8000")) . "/storage",
+            "url" => app(\App\EnvironmentService::class)->appUrl() . "/storage",
             "visibility" => "public",
         ],
 

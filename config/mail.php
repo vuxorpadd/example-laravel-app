@@ -12,7 +12,7 @@ return [
     |
     */
 
-    "default" => env("MAIL_MAILER", "smtp"),
+    "default" => app(\App\EnvironmentService::class)->mailMailer(),
 
     /*
     |--------------------------------------------------------------------------
