@@ -1,6 +1,6 @@
 ## Example laravel project
 
-Just a small example project written using **Laravel**, **Inertia** and **React**
+Just a small example project written to test **Laravel** + **Inertia** + **React** stack
 
 ### Setup
 There are two ways to set up the project locally. Using local server or using docker.
@@ -80,3 +80,27 @@ Run the server
 `php artisan serve`
 
 You now should be able to access the app on http://localhost:8000
+
+## Description
+
+It's a simple books database. There are 3 types of users: guests, users and admins.
+
+As a guest you can:
+- list books
+- open a detailed book page where you get more info about
+a particular book
+- list authors
+- open a detailed author page where you get more info about
+  a particular author
+- register as a user
+
+As a user you can:
+- do everything a guest can do
+- add a book to wishlist
+- show wishlist
+- send wishlist to an email
+
+As an admin you can:
+- do everything a user can do
+- add, edit or delete a book 
+- add, edit or delete an author
