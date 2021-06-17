@@ -43,7 +43,8 @@ For this approach you need to have `docker` and `docker-compose` installed on yo
 - Create public link to storage  
 `./sail php artisan storage:link`
 
-You now should be able to access the app on http://localhost
+You now should be able to access the app on http://localhost  
+All sent emails are being stored in Mailhog and could be found at http://localhost:8025.
 
 If your 80 port is in use by other process set the `APP_PORT` in your .env file to some other port, 
 then stop sail (`ctrl + c` or `sail stop` if running in background) and start it again (`sail up`).
@@ -87,7 +88,8 @@ You will also need some php extensions. Such as `sqlite3`, `gd` and all the exte
 - Run the server  
 `php artisan serve`
 
-You now should be able to access the app on http://localhost:8000
+You now should be able to access the app on http://localhost:8000  
+All sent emails are being stored in Laravel's log file.
 
 ## Description
 
@@ -112,3 +114,12 @@ As an admin you can:
 - do everything a user can do
 - add, edit or delete a book 
 - add, edit or delete an author
+
+## How to use
+Example user credentials:  
+login: `user@test.com`  
+pass: `test1234`  
+
+Example admin credentials:  
+login: `admin@test.com`  
+pass: `test1234`
