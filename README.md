@@ -52,31 +52,39 @@ then stop sail (`ctrl + c` or `sail stop` if running in background) and start it
 For this approach you need to have `composer`, `php`, `node` and `npm` installed on your machine.
 You will also need some php extensions. Such as `sqlite3`, `gd` and all the extensions that are required by Laravel.
 
-Install composer dependencies  
+- Install composer dependencies  
 `composer install`
+  
 
-Install node dependencies  
+- Install node dependencies  
 `npm install`
+  
 
-Copy env file  
+- Copy env file  
 `cp .env.dev.example .env`
+  
 
-Generate application key  
+- Generate application key  
 `php artisan key:generate`
+  
 
-Create database file  
+- Create database file  
 `php artisan db:sqlite.create`
+  
 
-Run database migrations  
+- Run database migrations  
 `php artisan migrate`
+  
 
-Seed database  
+- Seed database  
 `php artisan db:seed`
+  
 
-Create public link to storage  
+- Create public link to storage  
 `php artisan storage:link`
+  
 
-Run the server  
+- Run the server  
 `php artisan serve`
 
 You now should be able to access the app on http://localhost:8000
