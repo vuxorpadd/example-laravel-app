@@ -22,9 +22,22 @@ class AuthorController extends Controller
     }
 
     private function resizePhoto(
-        UploadedFile $cover
+        UploadedFile $photo
     ): \Psr\Http\Message\StreamInterface {
-        return $this->imageService->resizeImage($cover, 300, 300);
+        return $this->imageService->resizeImage($photo, 300, 300);
+    }
+
+    private function validationRules(array $overrides = []): array
+    {
+        return array_merge(
+            [
+                "name" => "required|max:50",
+                "birthdate" => "required|date|before:now",
+                "bio" => "max:10000",
+                "photo" => "required|image",
+            ],
+            $overrides
+        );
     }
 
     public function index()
@@ -65,12 +78,7 @@ class AuthorController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            "name" => "required|max:50",
-            "birthdate" => "required|date|before:now",
-            "bio" => "max:10000",
-            "photo" => "required|image",
-        ]);
+        $this->validate($request, $this->validationRules());
 
         $photo = $request->file("photo");
         $photoPath = $this->authorPhotosPath . $photo->hashName();
@@ -88,12 +96,12 @@ class AuthorController extends Controller
 
     public function update(Request $request, Author $author)
     {
-        $this->validate($request, [
-            "name" => "required|max:50",
-            "birthdate" => "required|date|before:now",
-            "bio" => "max:10000",
-            "photo" => "nullable|image",
-        ]);
+        $this->validate(
+            $request,
+            $this->validationRules([
+                "photo" => "nullable|image",
+            ])
+        );
 
         $newPhoto = $request->file("photo");
 
@@ -108,7 +116,7 @@ class AuthorController extends Controller
 
         $author->update($request->except("photo"));
 
-        if ($newPhoto && Storage::exists($author->photo)) {
+        if ($newPhoto && Storage::exists($oldPhotoPath)) {
             Storage::delete($oldPhotoPath);
         }
 

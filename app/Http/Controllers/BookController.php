@@ -123,7 +123,7 @@ class BookController extends Controller
 
         $book->update($newAttributes);
 
-        if ($newCover) {
+        if ($newCover && Storage::exists($oldCoverPath)) {
             Storage::delete($oldCoverPath);
         }
 
